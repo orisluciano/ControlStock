@@ -1,0 +1,331 @@
+:root {
+    --color-Primario: white;
+    --color-Secundario: #2196f3;
+    --color-SecundarioOscuro: #008dff;
+    --color-Sombra : #e5e5e5;
+    --color-BorderTabla : #dee2e6;
+    --radius-30 : 30px;
+}
+
+body {
+    background-color: var(--color-Primario);
+    color: var(--color-Secundario);
+    margin: 0px;
+    font-style: oblique;
+    font-family: system-ui;
+}
+
+svg {
+    width: 16px;
+    height: 16px;
+}
+
+::placeholder {
+    color: var(--color-Sombra);
+}
+
+table {
+    width: 100%;
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+thead {
+    border-bottom-style: solid;
+    border-bottom-color: var(--color-BorderTabla);
+    border-bottom-width: 2px;
+}
+
+td,th {
+    padding: 5px;
+}
+
+tr {
+    border-top: solid 1px;
+    border-top-color: var(--color-BorderTabla);
+    text-align: center;
+}
+
+.colorSec {
+    color: var(--color-Secundario);
+}
+
+.titulo {
+    color: var(--color-Primario);
+    background-color: var(--color-Secundario);
+    display: flex;
+    justify-content: center;
+    letter-spacing: 1px;
+}
+
+.subtitulo {
+    color: var(--color-Secundario);
+    background-color: var(--color-Primario);
+    letter-spacing: 1px;
+}
+
+.cabecera{
+    padding: 5px;
+    margin: 0px;
+}
+
+.divMenu {
+    display: flex;
+    height: 42px;
+    position: fixed;
+}
+
+.btnMenu {
+    background-color: transparent;
+    color: var(--color-Primario);
+}
+
+.btnBasico {
+    font-size: 16px;
+    border-style: none;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.btnCerrar {
+    border-style: none;
+    border-radius: var(--radius-30);
+    color: var(--color-Secundario);
+    background-color: var(--color-Primario);
+    cursor: pointer
+}
+
+.btnCerrar:hover {
+    background-color: var(--color-Sombra);
+}
+
+.btnPagiSel{
+    font-size: 16px;
+    border-style: none;
+    background-color: var(--color-Secundario);
+    color: var(--color-Primario);
+    cursor: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-style: oblique;
+    font-family: system-ui;
+    letter-spacing: 1px;
+}
+
+.btnPagiNoSel {
+    font-size: 16px;
+    border-style: none;
+    background-color: var(--color-Primario);
+    color: var(--color-Secundario);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 20px;
+    font-style: oblique;
+    font-family: system-ui;
+    letter-spacing: 1px;
+}
+
+.btnPagiNoSel:hover {
+    font-size: 16px;
+    border-style: none;
+    background-color: var(--color-Secundario);
+    color: var(--color-Primario);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 20px;
+    font-style: oblique;
+    font-family: system-ui;
+    letter-spacing: 1px;
+}
+
+.btnCrud{
+    font-size: 16px;
+    border-style: none;
+    background-color: var(--color-Secundario);
+    color: var(--color-Primario);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 20px;
+    font-style: oblique;
+    font-family: system-ui;
+    letter-spacing: 1px;
+}
+
+.btnCrud:hover{
+    background-color: var(--color-SecundarioOscuro);
+}
+
+.displayFlex {
+    display: flex;
+} 
+
+.centrarContenido {
+    justify-content: center;
+}
+
+.contentEnd {
+    justify-content: end;
+}
+
+.btnMenu:hover {
+    background-color: hsl(0deg 0% 0% / 7%);
+}
+
+.borderDivInput {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: var(--radius-30);
+    padding: 10px;
+    border-color: var(--color-Sombra);
+    color: var(--color-Sombra);
+}
+
+.borderDivInput:focus-within {
+    border-color: var(--color-Secundario);
+    color: var(--color-Secundario);
+}
+
+.inputText{
+    border-style: none;
+    width: 100%;
+    margin: 0px;
+    padding: 5px;
+    font-size: 16px;
+    font-style: oblique;
+    font-family: system-ui;
+    color: var(--color-Secundario);
+    border-radius: var(--radius-30);
+}
+
+.inputText:focus {
+    outline: 0;
+    color: var(--color-Secundario);
+}
+
+.marginBotton10 {
+    margin-bottom: 10px;
+}
+
+.btnRelleno {
+    font-size: 16px;
+    border-style: none;
+    background-color: var(--color-Secundario);
+    color: var(--color-Primario);
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    font-style: oblique;
+    font-family: system-ui;
+    letter-spacing: 1px;
+}
+
+.btnRelleno:hover {
+    background-color: var(--color-SecundarioOscuro);
+}
+
+.padding5 {
+    padding: 5px;
+}
+
+.padding10 {
+    padding: 10px;
+}
+
+.padding15 {
+    padding: 15px;
+}
+
+.divTabla {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--color-BorderTabla);
+    margin: 10px;
+    padding: 5px;
+}
+
+.filaTabla {
+    cursor: pointer;
+}
+.filaTabla:hover {
+    background-color: var(--color-Secundario);
+    color: var(--color-Primario);
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+  
+.dropdown {
+    /*position: relative;*/
+    display: inline-block;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--color-Primario);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 20px;
+}
+  
+.dropdown-content a {
+    background-color: var(--color-Primario);
+    color: var(--color-Secundario);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 20px;
+  }
+  
+.dropdown-content a:hover {
+    background-color: var(--color-Secundario);
+    color: var(--color-Primario);
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+  
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: var(--color-Primario);
+    margin: auto;
+    padding: 1%;
+    border: 1px solid #888;
+    width: 33%;
+    border-radius: 10px;
+  }
+  @media (max-width : 900px) {
+    .modal-content, .formWidth{
+        width: 95%;
+    }
+  }
