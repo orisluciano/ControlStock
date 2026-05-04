@@ -1,12 +1,9 @@
-import Inicio from "../Inicio.js";
-import LoginServicio from "../Login/Aplicacion/LoginServicio.js";
-import ModalLogin from "../Login/Vista/ModalLogin.js";
-import UsuarioLista from "../Usuarios/Vista/UsuarioLista.js";
-import Formulario from "../Utiles/Formulario.js";
-import Identificadores from "../Utiles/Identificadores.js";
+import Inicio from "../Inicio/Inicio.js";
+import Formulario from "../front/Utiles/Formulario.js";
+import Identificadores from "../front/Utiles/Identificadores.js";
 
 class MenuVista {
-    archivo = "./front/Menu/Menu.html";
+    archivo = "./Menu/Menu.html";
     ids = { 
         btnPerfil : "btnPerfil",
         btnUsers : "btnUsers",
