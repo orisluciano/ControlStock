@@ -1,23 +1,18 @@
 import Inicio from "../Inicio/Inicio.js";
-import Formulario from "../front/Utiles/Formulario.js";
-import Identificadores from "../front/Utiles/Identificadores.js";
+import Formulario from "../Utiles/Formulario.js";
+import Identificadores from "../Utiles/Identificadores.js";
 
 class MenuVista {
     archivo = "./Menu/Menu.html";
     ids = { 
-        btnPerfil : "btnPerfil",
-        btnUsers : "btnUsers",
-        btnRubro : "btnRubro",
-        btnSugerencias : "btnSugerencias",
-        btnTipoContacto : "btnTipoContacto",
-        btnTrabajador : "btnTrabajador",
-        btnTrabContacto : "btnTrabContacto",
-        btnTrabOpi : "btnTrabOpi",
-        btnTrabRubro : "btnTrabRubro",
-        btnConfig : "btnConfig",
-        btnLogout : "btnLogout",
         contenidoMenu : "contenidoMenu",
-        divMenu : "divMenu"
+        divMenu : "divMenu",
+        btnStock :"btnStock",
+        btnProducto : "btnProducto",
+        btnTipoProducto : "btnTipoProducto",
+        btnPrecio : "btnPrecio",
+        btnMovimiento : "btnMovimiento",
+        btnTipoMovimiento : "btnTipoMovimiento"
     };
     form = new Formulario();
     ident = new Identificadores();
@@ -35,7 +30,7 @@ class MenuVista {
         div.className = "divMenu dropdown";
         let root = document.getElementById(this.ident.root);
         root.innerHTML = "";
-        this.cargarFunciones();
+        //this.cargarFunciones();
     }
 
     cargarFunciones(){
