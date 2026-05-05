@@ -1,20 +1,21 @@
+import BotonesSVG from "../../Utiles/BotonesSVG.js";
+import Operaciones from "../../Utiles/Operaciones.js";
 import Formulario from "../../Utiles/Formulario.js";
 import Identificadores from "../../Utiles/Identificadores.js";
+import ProductoServicio from "../Aplicacion/ProductoServicio.js";
 
 class ProductoVista {
     archivo = "./Producto/Vista/ProductoVista.html";
     ids = { 
-        contenidoMenu : "contenidoMenu",
-        divMenu : "divMenu",
-        btnStock :"btnStock",
-        btnProducto : "btnProducto",
-        btnTipoProducto : "btnTipoProducto",
-        btnPrecio : "btnPrecio",
-        btnMovimiento : "btnMovimiento",
-        btnTipoMovimiento : "btnTipoMovimiento"
+        btnNuevoProd : "btnNuevoProd",
+        tblProd : "tblProd",
+        divPaginacion : "divPaginacion"
     };
     form = new Formulario();
     ident = new Identificadores();
+    operaciones = new Operaciones();
+    botones = new BotonesSVG();
+    prodService = new ProductoServicio();
 
     constructor(parameters) {
         
@@ -26,13 +27,13 @@ class ProductoVista {
         root.innerHTML = "";
         root.innerHTML = res;
         //this.cargarFunciones();
-        //await this.mostrarDatos(0, 10, 0);
+        await this.mostrarDatos(0, 10, 0);
     }
 
     cargarFunciones(){
         let esto = this;
-        let btnNuevoUser = document.getElementById(this.ids.btnNuevoUser);
-        btnNuevoUser.onclick = function(params) {
+        let btnNuevoProd = document.getElementById(this.ids.btnNuevoProd);
+        btnNuevoProd.onclick = function(params) {
             esto.btnNuevoUserOnClick();
         }
     }
@@ -43,13 +44,13 @@ class ProductoVista {
     }
 
     async cargarDatos(desde, cantidad){
-        let res = await this.userService.getUsuarios(desde, cantidad);
+        let res = await this.prodService.getProductos(desde, cantidad);
         console.log(await res);
         return await res;
     }
 
     cargarTabla(datos, index){
-        let tabla = document.getElementById(this.ids.tblUsuario);
+        let tabla = document.getElementById(this.ids.tblProd);
         tabla.innerHTML = "";
         datos.resultados.forEach(e => {
             tabla.appendChild(this.crearLinea(e));
