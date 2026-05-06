@@ -3,6 +3,7 @@ import Operaciones from "../../Utiles/Operaciones.js";
 import Formulario from "../../Utiles/Formulario.js";
 import Identificadores from "../../Utiles/Identificadores.js";
 import ProductoServicio from "../Aplicacion/ProductoServicio.js";
+import ProductoABM from "./ProductoABM.js";
 
 class ProductoVista {
     archivo = "./Producto/Vista/ProductoVista.html";
@@ -26,7 +27,7 @@ class ProductoVista {
         let root = document.getElementById(this.ident.root);
         root.innerHTML = "";
         root.innerHTML = res;
-        //this.cargarFunciones();
+        this.cargarFunciones();
         await this.mostrarDatos(0, 10, 0);
     }
 
@@ -34,13 +35,13 @@ class ProductoVista {
         let esto = this;
         let btnNuevoProd = document.getElementById(this.ids.btnNuevoProd);
         btnNuevoProd.onclick = function(params) {
-            esto.btnNuevoUserOnClick();
+            esto.btnNuevoProdOnClick();
         }
     }
 
     async mostrarDatos(desde, cantidad, index){
-        let usuarios = await this.cargarDatos(desde, cantidad);
-        this.cargarTabla(usuarios.respuesta, index);
+        let productos = await this.cargarDatos(desde, cantidad);
+        this.cargarTabla(productos.respuesta, index);
     }
 
     async cargarDatos(desde, cantidad){
@@ -121,13 +122,13 @@ class ProductoVista {
         abm.cargarVista();
     }
 
-    btnNuevoUserOnClick(){
-        let usuario = {};
-        this.irABM(this.operaciones.crear, usuario);
+    btnNuevoProdOnClick(){
+        let producto= {};
+        this.irABM(this.operaciones.crear, producto);
     }
 
     irABM(operacion, usuario){
-        let abm = new UsuarioABM(operacion, usuario);
+        let abm = new ProductoABM(operacion, usuario);
         abm.cargarVista();
     }
 }
