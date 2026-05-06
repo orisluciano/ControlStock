@@ -2,18 +2,29 @@ import ModalBase from "../../Utiles/Modal/ModalBase.js";
 import Operaciones from "../../Utiles/Operaciones.js";
 import Formulario from "../../Utiles/Formulario.js";
 import Identificadores from "../../Utiles/Identificadores.js";
+import ProductoVista from "./ProductoVista.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
 class ProductoABM {
     archivo = "./Producto/Vista/ProductoABM.html";
     ids = {
-        operacionUser : "operacionUser",
-        btnOpUser : "btnOpUser",
-        txtUserABM : "txtUserABM",
-        txtBloqUser : "txtBloqUser",
-        txtMailUser : "txtMailUser",
-        divErroresUser : "divErroresUser"
+        operacionProd : "operacionProd",
+        btnOpProd : "btnOpProd",
+        divErroresProd : "divErroresProd",
+        btnVolverProd : "btnVolverProd",
+        txtImgProd : "txtImgProd",
+        txtNomProd : "txtNomProd",
+        txtDescProd : "txtDescProd",
+        txtCodProd : "txtCodProd",
+        slcTipoProd : "slcTipoProd",
+        txtPrecioCosto : "txtPrecioCosto",
+        txtPrecioVenta : "txtPrecioVenta",
+        btnModSPrecio : "btnModSPrecio",
+        btnHistPrecio : "btnHistPrecio",
+        txtStockProd : "txtStockProd",
+        btnModStock : "btnModStock",
+        btnMovsStock : "btnMovsStock"
     };
     //userService = new UsuarioServicio();
     form = new Formulario();
@@ -39,17 +50,21 @@ class ProductoABM {
 
     cargarFunciones(){
         let esto = this;
-        let btnOpUser = document.getElementById(this.ids.btnOpUser);
-        btnOpUser.innerHTML = this.operacion;
-        btnOpUser.onclick = function(params) {
-            esto.btnOpUserOnclick();
+        let btnOpProd = document.getElementById(this.ids.btnOpProd);
+        btnOpProd.innerHTML = this.operacion;
+        btnOpProd.onclick = function(params) {
+            esto.btnOpProdOnclick();
         };
+        let btnVolver = document.getElementById(this.ids.btnVolverProd);
+        btnVolver.onclick = function(params) {
+            esto.btnVolverProdOnClick();
+        }
     }
 
     mostrarDatos(){
-        let operacion = document.getElementById(this.ids.operacionUser);
+        let operacion = document.getElementById(this.ids.operacionProd);
         operacion.innerHTML = "";
-        operacion.innerHTML = this.operacion + " usuario";
+        operacion.innerHTML = this.operacion + " producto";
         if (this.operacion != this.operaciones.crear) {
             let nombre = document.getElementById(this.ids.txtUserABM);
             nombre.innerHTML = "";
@@ -63,8 +78,8 @@ class ProductoABM {
         }
     }
 
-    async btnOpUserOnclick(){
-        let mensaje = "¿Desea " + this.operacion + " este usuario?";
+    async btnOpProdOnclick(){
+        let mensaje = "¿Desea " + this.operacion + " este producto?";
         let base = null;
         if (confirm(mensaje)) {
             switch (this.operacion) {
@@ -93,6 +108,11 @@ class ProductoABM {
                 });
             }
         }
+    }
+
+    btnVolverProdOnClick(){
+        let lista = new ProductoVista();
+        lista.cargarVista();
     }
 }
 export default ProductoABM;
