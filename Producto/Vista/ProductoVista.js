@@ -69,15 +69,15 @@ class ProductoVista {
         let colCod = document.createElement("td");
         colCod.innerHTML = producto.codSKU;
         linea.appendChild(colCod);
-        /*linea.onclick = function(params) {
-            esto.lineaTablaOnclick(usuario);
-        };*/
+        linea.onclick = function(params) {
+            esto.lineaTablaOnclick(producto);
+        };
         let btnModif = document.createElement("button");
         //btnModif.innerHTML = this.operaciones.modificar;
         btnModif.innerHTML = this.botones.editar;
         btnModif.className = "btnCrud";
         btnModif.onclick = function(params) {
-            esto.irABM(esto.operaciones.modificar, usuario);
+            esto.irABM(esto.operaciones.modificar, producto);
         };
         linea.appendChild(btnModif);
         let btnElim = document.createElement("button");
@@ -85,7 +85,7 @@ class ProductoVista {
         //btnElim.innerHTML = this.operaciones.eliminar;
         btnElim.innerHTML = this.botones.eliminar;
         btnElim.onclick = function(params) {
-            esto.irABM(esto.operaciones.eliminar, usuario);
+            esto.irABM(esto.operaciones.eliminar, producto);
         };
         linea.appendChild(btnElim);
         return linea;
@@ -115,8 +115,7 @@ class ProductoVista {
     }
 
     lineaTablaOnclick(usuario){
-        let abm = new UsuarioABM(this.operaciones.ver, usuario);
-        abm.cargarVista();
+        this.irABM(this.operaciones.ver, usuario);
     }
 
     btnNuevoProdOnClick(){
@@ -124,8 +123,8 @@ class ProductoVista {
         this.irABM(this.operaciones.crear, producto);
     }
 
-    irABM(operacion, usuario){
-        let abm = new ProductoABM(operacion, usuario);
+    irABM(operacion, producto){
+        let abm = new ProductoABM(operacion, producto);
         abm.cargarVista();
     }
 }
