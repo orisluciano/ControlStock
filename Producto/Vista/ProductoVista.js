@@ -59,19 +59,16 @@ class ProductoVista {
         this.cargarPaginacion(datos.cantidad, 10, index);
     }
 
-    crearLinea(usuario){
+    crearLinea(producto){
         let esto = this;
         let linea = document.createElement("tr");
         linea.className = "filaTabla";
         let colNombre = document.createElement("td");
-        colNombre.innerHTML = usuario.usuario;
+        colNombre.innerHTML = producto.nombre;
         linea.appendChild(colNombre);
-        let colTipo = document.createElement("td");
-        colTipo.innerHTML = usuario.tipoUsuarioId;
-        linea.appendChild(colTipo);
-        let colBloqueado = document.createElement("td");
-        colBloqueado.innerHTML = usuario.bloqueado;
-        linea.appendChild(colBloqueado);
+        let colCod = document.createElement("td");
+        colCod.innerHTML = producto.codSKU;
+        linea.appendChild(colCod);
         /*linea.onclick = function(params) {
             esto.lineaTablaOnclick(usuario);
         };*/
