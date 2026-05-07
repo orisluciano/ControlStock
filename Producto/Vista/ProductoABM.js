@@ -24,19 +24,23 @@ class ProductoABM {
         btnHistPrecio : "btnHistPrecio",
         txtStockProd : "txtStockProd",
         btnModStock : "btnModStock",
-        btnMovsStock : "btnMovsStock"
+        btnMovsStock : "btnMovsStock",
+        divPrecio : "divPrecio",
+        divStock : "divStock",
+        btnModProd : "btnModProd",
+        btnElimProd : "btnElimProd"
     };
     //userService = new UsuarioServicio();
     form = new Formulario();
     ident = new Identificadores();
     operaciones = new Operaciones();
     operacion = null;
-    usuario = null;
+    producto = null;
     //userSend = new Usuario();
 
-    constructor(operacion, usuario) {
+    constructor(operacion, producto) {
         this.operacion = operacion
-        this.usuario = usuario;
+        this.producto = producto;
     }
 
     async cargarVista(){
@@ -58,23 +62,46 @@ class ProductoABM {
         let btnVolver = document.getElementById(this.ids.btnVolverProd);
         btnVolver.onclick = function(params) {
             esto.btnVolverProdOnClick();
-        }
+        };
+        let btnMod = document.getElementById(this.ids.btnModProd);
+        btnMod.onclick = function(params) {
+            esto.btnModProdOnClick();
+        };
+        let btnElim = document.getElementById(this.ids.btnElimProd);
+        btnElim.onclick= function(params) {
+            esto.btnElimProdOnClick();
+        };
     }
 
     mostrarDatos(){
         let operacion = document.getElementById(this.ids.operacionProd);
         operacion.innerHTML = "";
         operacion.innerHTML = this.operacion + " producto";
-        if (this.operacion != this.operaciones.crear) {
-            let nombre = document.getElementById(this.ids.txtUserABM);
+        if (this.operacion === this.operaciones.crear) {
+            let divPrecio = document.getElementById(this.ids.divPrecio);
+            divPrecio.style.display = "none";
+            let divStock = document.getElementById(this.ids.divStock);
+            divStock.style.display = "none";
+            this.bloquearBotones();
+        }
+        if (this.operacion === this.operaciones.eliminar || this.operacion === this.operaciones.ver) {
+            let nombre = document.getElementById(this.ids.txtNomProd);
             nombre.innerHTML = "";
-            nombre.value = this.usuario.usuario;
+            nombre.value = this.producto.nombre;
             nombre.disabled = true;
-            let mail = document.getElementById(this.ids.txtMailUser);
-            mail.value = this.usuario.mail;
-            mail.disabled = true;
-            let bloqueado = document.getElementById(this.ids.txtBloqUser);
-            bloqueado.value = this.usuario.bloqueado;   
+            let descripcion = document.getElementById(this.ids.txtDescProd);
+            descripcion.value = this.producto.descripcion;
+            descripcion.disabled = true;
+            let codigo = document.getElementById(this.ids.txtCodProd);
+            codigo.value = this.producto.codSKU; 
+            codigo.disabled = true;
+            let tipoProd = document.getElementById(this.ids.slcTipoProd);
+            tipoProd.value = this.producto.tipoProdId
+            tipoProd.innerHTML = this.producto.tipoProdId;
+            tipoProd.disabled = true;
+            let btnOp = document.getElementById(this.ids.btnOpProd);
+            btnOp.style.display = "none";
+            this.desbloquearBotones();
         }
     }
 
@@ -113,6 +140,64 @@ class ProductoABM {
     btnVolverProdOnClick(){
         let lista = new ProductoVista();
         lista.cargarVista();
+    }
+
+    btnModProdOnClick(){
+        this.desbloquearInputs();
+    }
+
+    btnElimProdOnClick(){
+        let borrar = confirm("¿Desea eliminar este producto?");
+        if (borrar) {
+            alert("El producto fue eliminado.");
+        }
+    }
+
+
+    bloquearInputs(){
+        let nombre = document.getElementById(this.ids.txtNomProd);
+        nombre.innerHTML = "";
+        nombre.value = this.producto.nombre;
+        nombre.disabled = true;
+        let descripcion = document.getElementById(this.ids.txtDescProd);
+        descripcion.value = this.producto.descripcion;
+        descripcion.disabled = true;
+        let codigo = document.getElementById(this.ids.txtCodProd);
+        codigo.value = this.producto.codSKU; 
+        codigo.disabled = true;
+        let tipoProd = document.getElementById(this.ids.slcTipoProd);
+        tipoProd.value = this.producto.tipoProdId
+        tipoProd.innerHTML = this.producto.tipoProdId;
+        tipoProd.disabled = true;
+        let btnOp = document.getElementById(this.ids.btnOpProd);
+        btnOp.style.display = "none";
+    }
+
+    desbloquearInputs(){
+        let nombre = document.getElementById(this.ids.txtNomProd);
+        nombre.disabled = false;
+        let descripcion = document.getElementById(this.ids.txtDescProd);
+        descripcion.disabled = false;
+        let codigo = document.getElementById(this.ids.txtCodProd); 
+        codigo.disabled = false;
+        let tipoProd = document.getElementById(this.ids.slcTipoProd);
+        tipoProd.disabled = false;
+        let btnOp = document.getElementById(this.ids.btnOpProd);
+        btnOp.style.display = "block";
+    }
+
+    bloquearBotones(){
+        let btnMod = document.getElementById(this.ids.btnModProd);
+        btnMod.style.display = "none";
+        let btnElim = document.getElementById(this.ids.btnElimProd);
+        btnElim.style.display = "none";
+    }
+
+    desbloquearBotones(){
+        let btnMod = document.getElementById(this.ids.btnModProd);
+        btnMod.disabled = false;
+        let btnElim = document.getElementById(this.ids.btnElimProd);
+        btnElim.disabled = false;
     }
 }
 export default ProductoABM;

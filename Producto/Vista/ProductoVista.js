@@ -72,7 +72,7 @@ class ProductoVista {
         linea.onclick = function(params) {
             esto.lineaTablaOnclick(producto);
         };
-        let btnModif = document.createElement("button");
+        /*let btnModif = document.createElement("button");
         //btnModif.innerHTML = this.operaciones.modificar;
         btnModif.innerHTML = this.botones.editar;
         btnModif.className = "btnCrud";
@@ -87,7 +87,7 @@ class ProductoVista {
         btnElim.onclick = function(params) {
             esto.irABM(esto.operaciones.eliminar, producto);
         };
-        linea.appendChild(btnElim);
+        linea.appendChild(btnElim);*/
         return linea;
     }
 

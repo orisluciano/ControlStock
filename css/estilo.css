@@ -255,6 +255,16 @@ tr {
     color: var(--color-Primario);
 }
 
+.btnMargenIzq {
+    position: absolute;
+    left: 15px;
+}
+
+.divEspaciado {
+    display: flex;
+    justify-content: space-between;
+}
+
 .dropbtn {
     background-color: #4CAF50;
     color: white;
