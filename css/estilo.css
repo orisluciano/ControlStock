@@ -5,6 +5,7 @@
     --color-Sombra : #e5e5e5;
     --color-BorderTabla : #dee2e6;
     --radius-30 : 30px;
+    --color-alert : red;
 }
 
 body {
@@ -263,6 +264,10 @@ tr {
 .divEspaciado {
     display: flex;
     justify-content: space-between;
+}
+
+.colorAlert {
+    color: var(--color-alert);
 }
 
 .dropbtn {

@@ -41,7 +41,19 @@ class ProductoVista {
 
     async mostrarDatos(desde, cantidad, index){
         let productos = await this.cargarDatos(desde, cantidad);
-        this.cargarTabla(productos.respuesta, index);
+        if (productos.errores.length > 0) {
+            alert("Hubo un problema al cargar los datos...");
+            let tabla = document.getElementById(this.ids.tblProd);
+            tabla.innerHTML = "";
+            productos.errores.forEach(e => {
+                let linea = document.createElement("tr");
+                linea.className = "colorAlert";
+                linea.innerHTML = e;
+                tabla.appendChild(linea);
+            });
+        } else {
+            this.cargarTabla(productos.respuesta, index);   
+        }
     }
 
     async cargarDatos(desde, cantidad){
