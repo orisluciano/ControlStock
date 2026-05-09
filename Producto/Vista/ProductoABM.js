@@ -28,7 +28,8 @@ class ProductoABM {
         divPrecio : "divPrecio",
         divStock : "divStock",
         btnModProd : "btnModProd",
-        btnElimProd : "btnElimProd"
+        btnElimProd : "btnElimProd",
+        btnCancelProd : "btnCancelProd"
     };
     //userService = new UsuarioServicio();
     form = new Formulario();
@@ -71,6 +72,10 @@ class ProductoABM {
         btnElim.onclick= function(params) {
             esto.btnElimProdOnClick();
         };
+        let btnCancelProd = document.getElementById(this.ids.btnCancelProd);
+        btnCancelProd.onclick = function(params) {
+            esto.btnCancelProdOnClick();
+        };
     }
 
     mostrarDatos(){
@@ -83,6 +88,8 @@ class ProductoABM {
             let divStock = document.getElementById(this.ids.divStock);
             divStock.style.display = "none";
             this.bloquearBotones();
+            let btnCancel = document.getElementById(this.ids.btnCancelProd);
+            btnCancel.style.display = "none";
         }
         if (this.operacion === this.operaciones.eliminar || this.operacion === this.operaciones.ver) {
             let nombre = document.getElementById(this.ids.txtNomProd);
@@ -101,6 +108,8 @@ class ProductoABM {
             tipoProd.disabled = true;
             let btnOp = document.getElementById(this.ids.btnOpProd);
             btnOp.style.display = "none";
+            let btnCancel = document.getElementById(this.ids.btnCancelProd);
+            btnCancel.style.display = "none";
             this.desbloquearBotones();
         }
     }
@@ -174,6 +183,11 @@ class ProductoABM {
         }
     }
 
+    btnCancelProdOnClick(){
+        this.operacion = this.operaciones.ver;
+        this.bloquearInputs();
+    }
+
 
     bloquearInputs(){
         let nombre = document.getElementById(this.ids.txtNomProd);
@@ -192,6 +206,8 @@ class ProductoABM {
         tipoProd.disabled = true;
         let btnOp = document.getElementById(this.ids.btnOpProd);
         btnOp.style.display = "none";
+        let btnCancel = document.getElementById(this.ids.btnCancelProd);
+        btnCancel.style.display = "none";
     }
 
     desbloquearInputs(){
@@ -205,6 +221,8 @@ class ProductoABM {
         tipoProd.disabled = false;
         let btnOp = document.getElementById(this.ids.btnOpProd);
         btnOp.style.display = "block";
+        let btnCancel = document.getElementById(this.ids.btnCancelProd);
+        btnCancel.style.display = "block";
     }
 
     bloquearBotones(){
