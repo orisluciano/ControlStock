@@ -134,6 +134,23 @@ class ProductoABM {
                     divErrores.appendChild(error);
                 });
             }
+            if (base.mensajes.lenght > 0) {
+                switch (this.operacion) {
+                    case this.operaciones.crear:
+                        alert("Voy a cerrar la ventana");
+                        this.irLista();
+                        break;
+                    case this.operaciones.modificar:
+                        this.bloquearInputs();
+                        this.operacion = this.operaciones.ver;
+                        break;
+                    case this.operaciones.eliminar:
+                        alert("Voy a cerrar la ventana");
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 
@@ -144,12 +161,16 @@ class ProductoABM {
 
     btnModProdOnClick(){
         this.desbloquearInputs();
+        this.operacion = this.operaciones.modificar;
+        let btnOp = document.getElementById(this.ids.btnOpProd);
+        btnOp.innerHTML = this.operacion;
     }
 
     btnElimProdOnClick(){
         let borrar = confirm("¿Desea eliminar este producto?");
         if (borrar) {
             alert("El producto fue eliminado.");
+            this.irLista();
         }
     }
 
@@ -198,6 +219,11 @@ class ProductoABM {
         btnMod.disabled = false;
         let btnElim = document.getElementById(this.ids.btnElimProd);
         btnElim.disabled = false;
+    }
+
+    irLista(){
+        let lista = new ProductoVista();
+        lista.cargarVista();
     }
 }
 export default ProductoABM;
