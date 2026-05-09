@@ -22,8 +22,8 @@ class ProductoServicio {
         return json;
     }
 
-    async nuevo(usuario){
-        let base = await this.peticiones.peticionesVarias(this.api, "POST", usuario, this.tokenService.BearerToken());
+    async nuevo(producto){
+        let base = await this.peticiones.peticionesVarias(this.api, "POST", producto, "");
         return await base;
     }
 

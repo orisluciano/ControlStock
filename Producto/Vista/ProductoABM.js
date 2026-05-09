@@ -3,6 +3,8 @@ import Operaciones from "../../Utiles/Operaciones.js";
 import Formulario from "../../Utiles/Formulario.js";
 import Identificadores from "../../Utiles/Identificadores.js";
 import ProductoVista from "./ProductoVista.js";
+import ProductoServicio from "../Aplicacion/ProductoServicio.js";
+import Producto from "../Aplicacion/Producto.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -31,13 +33,13 @@ class ProductoABM {
         btnElimProd : "btnElimProd",
         btnCancelProd : "btnCancelProd"
     };
-    //userService = new UsuarioServicio();
     form = new Formulario();
     ident = new Identificadores();
     operaciones = new Operaciones();
     operacion = null;
     producto = null;
-    //userSend = new Usuario();
+    productoSend = new Producto();
+    prodService = new ProductoServicio();
 
     constructor(operacion, producto) {
         this.operacion = operacion
@@ -120,7 +122,7 @@ class ProductoABM {
         if (confirm(mensaje)) {
             switch (this.operacion) {
                 case this.operaciones.crear:
-                    base = await this.userService.nuevo(this.userSend);
+                    base = await this.prodService.nuevo(this.productoSend);
                     break;
                 case this.operaciones.modificar:
                     base = await this.userService.modificar(this.userSend);
