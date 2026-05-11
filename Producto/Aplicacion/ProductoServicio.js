@@ -27,12 +27,14 @@ class ProductoServicio {
         return await base;
     }
 
-    modificar(usuario){
-        alert("proximamente");
+    async modificar(producto){
+        let base = await this.peticiones.peticionesVarias(this.api, "PUT", producto, "");
+        return await base;
     }
 
-    eliminar(id){
-        alert("proximamente");
+    async eliminar(producto){
+        let base = await this.peticiones.peticionesVarias(this.api, "DELETE", producto, "");
+        return await base;
     }
 }
 export default ProductoServicio;

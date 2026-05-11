@@ -134,10 +134,10 @@ class ProductoABM {
                     base = await this.prodService.nuevo(this.productoSend);
                     break;
                 case this.operaciones.modificar:
-                    base = await this.userService.modificar(this.userSend);
+                    base = await this.prodService.modificar(this.productoSend);
                     break;
                 case this.operaciones.eliminar:
-                    base = await this.userService.eliminar(this.userSend);
+                    base = await this.prodService.eliminar(this.productoSend);
                     break;
                 default:
                     break;
@@ -153,9 +153,9 @@ class ProductoABM {
                 });
             }
             if (base.mensajes.length > 0) {
+                alert(base.mensajes[0]);
                 switch (this.operacion) {
                     case this.operaciones.crear:
-                        alert("Voy a cerrar la ventana");
                         this.irLista();
                         break;
                     case this.operaciones.modificar:
@@ -163,7 +163,7 @@ class ProductoABM {
                         this.operacion = this.operaciones.ver;
                         break;
                     case this.operaciones.eliminar:
-                        alert("Voy a cerrar la ventana");
+                        this.irLista();
                         break;
                     default:
                         break;
@@ -184,11 +184,20 @@ class ProductoABM {
         btnOp.innerHTML = this.operacion;
     }
 
-    btnElimProdOnClick(){
+    async btnElimProdOnClick(){
         let borrar = confirm("¿Desea eliminar este producto?");
         if (borrar) {
-            alert("El producto fue eliminado.");
-            this.irLista();
+            this.productoSend.id = this.producto.id;
+            let base = await this.prodService.eliminar(this.productoSend);
+            if (base.errores.lenght > 0) {
+                base.errores.forEach(e => {
+                    alert(e);
+                });
+            }
+            if (base.mensajes.length > 0) {
+                base.mensajes.forEach(e =>{ alert(e); });
+                this.irLista();
+            }
         }
     }
 
