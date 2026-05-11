@@ -120,6 +120,15 @@ class ProductoABM {
         let mensaje = "¿Desea " + this.operacion + " este producto?";
         let base = null;
         if (confirm(mensaje)) {
+            this.productoSend.id = this.producto.id;
+            let txtNombre = document.getElementById(this.ids.txtNomProd);
+            this.productoSend.nombre = txtNombre.value;
+            let txtDescrip = document.getElementById(this.ids.txtDescProd);
+            this.productoSend.descripcion = txtDescrip.value;
+            let txtCod = document.getElementById(this.ids.txtCodProd);
+            this.productoSend.codSKU = txtCod.value;
+            let slcTipo = document.getElementById(this.ids.slcTipoProd);
+            this.productoSend.tipoProductoId = slcTipo.value;
             switch (this.operacion) {
                 case this.operaciones.crear:
                     base = await this.prodService.nuevo(this.productoSend);
@@ -133,10 +142,8 @@ class ProductoABM {
                 default:
                     break;
             }
-            if (base.mensajes.lenght > 0) {
-                alert(base.mensajes[0]);
-            } else {
-                let divErrores = document.getElementById(this.ids.divErroresUser);
+            if (base.errores.lenght > 0) {
+                let divErrores = document.getElementById(this.ids.divErroresProd);
                 divErrores.innerHTML = "";
                 alert("Hubo un error...");
                 base.errores.forEach(e => {
@@ -145,7 +152,7 @@ class ProductoABM {
                     divErrores.appendChild(error);
                 });
             }
-            if (base.mensajes.lenght > 0) {
+            if (base.mensajes.length > 0) {
                 switch (this.operacion) {
                     case this.operaciones.crear:
                         alert("Voy a cerrar la ventana");
