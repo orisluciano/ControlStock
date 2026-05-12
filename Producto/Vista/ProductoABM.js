@@ -212,7 +212,7 @@ class ProductoABM {
     }
 
     btnHistPrecioOnClick(){
-        let precioHist = new PrecioHistoriaVista();
+        let precioHist = new PrecioHistoriaVista(this.producto.id);
         precioHist.cargarVista();
     }
 

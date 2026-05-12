@@ -36,12 +36,49 @@ class PrecioHistoriaVista {
     }
 
     async mostrarDatos(){
-        let respBase = await this.precioServicio.getPreciosById(null, null, null);
+        let txtDesde = document.getElementById(this.ids.txtDesde);
+        let desde = txtDesde.value;
+        let txtHasta = document.getElementById(this.ids.txtHasta);
+        let hasta = txtHasta.value;
+        let respBase = await this.precioServicio.getPreciosById(this.productoId, desde, hasta);
         console.log(respBase);
+        let tabla = document.getElementById(this.ids.tblPrecio);
+        if (respBase.errores.length > 0) {
+            respBase.errores.forEach(e => {
+                alert(e);
+            });
+        } else {
+            
+            this.cargarTabla(respBase.respuesta.resultados);
+        }
     }
 
     async btnBuscarPrecioOnClick(){
         await this.mostrarDatos();
+    }
+
+    cargarTabla(datos){
+        let tabla = document.getElementById(this.ids.tblPrecio);
+        tabla.innerHTML = "";
+        datos.forEach(e => {
+            tabla.appendChild(this.crearLinea(e));
+        });
+    }
+
+    crearLinea(precio){
+        let esto = this;
+        let linea = document.createElement("tr");
+        linea.className = "filaTabla";
+        let colCosto= document.createElement("td");
+        colCosto.innerHTML = precio.costo;
+        linea.appendChild(colCosto);
+        let colVenta = document.createElement("td");
+        colVenta.innerHTML = precio.venta;
+        linea.appendChild(colVenta);
+        let colFecha = document.createElement("td");
+        colFecha.innerHTML = precio.fechaModif;
+        linea.appendChild(colFecha);
+        return linea;
     }
 }
 export default PrecioHistoriaVista;
