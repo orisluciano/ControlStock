@@ -5,6 +5,7 @@ import Identificadores from "../../Utiles/Identificadores.js";
 import ProductoVista from "./ProductoVista.js";
 import ProductoServicio from "../Aplicacion/ProductoServicio.js";
 import Producto from "../Aplicacion/Producto.js";
+import PrecioHistoriaVista from "../../Precio/Vista/PrecioHistorialVista.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -78,6 +79,10 @@ class ProductoABM {
         btnCancelProd.onclick = function(params) {
             esto.btnCancelProdOnClick();
         };
+        let btnHistPrecio = document.getElementById(this.ids.btnHistPrecio);
+        btnHistPrecio.onclick = function(params) {
+            esto.btnHistPrecioOnClick();
+        }
     }
 
     mostrarDatos(){
@@ -204,6 +209,11 @@ class ProductoABM {
     btnCancelProdOnClick(){
         this.operacion = this.operaciones.ver;
         this.bloquearInputs();
+    }
+
+    btnHistPrecioOnClick(){
+        let precioHist = new PrecioHistoriaVista();
+        precioHist.cargarVista();
     }
 
 
