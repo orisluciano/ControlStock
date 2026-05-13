@@ -79,6 +79,10 @@ class ProductoABM {
         btnCancelProd.onclick = function(params) {
             esto.btnCancelProdOnClick();
         };
+        let btnModPrecio = document.getElementById(this.ids.btnModSPrecio);
+        btnModPrecio.onclick = function(params) {
+            esto.btnModSPrecioOnClick();
+        }
         let btnHistPrecio = document.getElementById(this.ids.btnHistPrecio);
         btnHistPrecio.onclick = function(params) {
             esto.btnHistPrecioOnClick();
@@ -209,6 +213,10 @@ class ProductoABM {
     btnCancelProdOnClick(){
         this.operacion = this.operaciones.ver;
         this.bloquearInputs();
+    }
+
+    btnModSPrecioOnClick(){
+        alert("Proximamente");
     }
 
     btnHistPrecioOnClick(){
