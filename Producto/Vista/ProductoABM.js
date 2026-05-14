@@ -6,6 +6,7 @@ import ProductoVista from "./ProductoVista.js";
 import ProductoServicio from "../Aplicacion/ProductoServicio.js";
 import Producto from "../Aplicacion/Producto.js";
 import PrecioHistoriaVista from "../../Precio/Vista/PrecioHistorialVista.js";
+import PrecioServicio from "../../Precio/Aplicacion/PrecioServicio.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -39,8 +40,10 @@ class ProductoABM {
     operaciones = new Operaciones();
     operacion = null;
     producto = null;
+    precio = null;
     productoSend = new Producto();
     prodService = new ProductoServicio();
+    precioService = new PrecioServicio();
 
     constructor(operacion, producto) {
         this.operacion = operacion
@@ -53,7 +56,22 @@ class ProductoABM {
         root.innerHTML = "";
         root.innerHTML = res;
         this.cargarFunciones();
+        await this.cargarPrecio();
         this.mostrarDatos();
+    }
+
+    async cargarPrecio(){
+        let res = await this.precioService.getUltimoPrecio(this.producto.id);
+        if (res.errores.length > 0) {
+            
+        }else{
+            let txtCosto = document.getElementById(this.ids.txtPrecioCosto);
+            txtCosto.value = "";
+            txtCosto.value = "Costo: $" + res.respuesta.resultados[0].costo;
+            let txtVenta = document.getElementById(this.ids.txtPrecioVenta);
+            txtVenta.value = "";
+            txtVenta.value = "Venta: $" + res.respuesta.resultados[0].venta;
+        }
     }
 
     cargarFunciones(){

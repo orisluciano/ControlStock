@@ -9,12 +9,20 @@ class PrecioServicio {
     }
 
     async getPreciosById(id, desde, hasta){
-        let dir = this.api + "/" + id + "/" + desde + "/" + hasta
+        let dir = this.api + "/" + id + "/" + desde + "/" + hasta;
         let peticion = await fetch(dir, {
             method : "GET"
         });
         let json = await peticion.json();
-        console.log(json);
+        return json;
+    }
+
+    async getUltimoPrecio(id){
+        let dir = this.api + "/ultimoprecio/" + id;
+        let peticion = await fetch(dir, {
+            method : "GET"
+        });
+        let json = await peticion.json();
         return json;
     }
 
