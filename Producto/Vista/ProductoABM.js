@@ -7,6 +7,7 @@ import ProductoServicio from "../Aplicacion/ProductoServicio.js";
 import Producto from "../Aplicacion/Producto.js";
 import PrecioHistoriaVista from "../../Precio/Vista/PrecioHistorialVista.js";
 import PrecioServicio from "../../Precio/Aplicacion/PrecioServicio.js";
+import PrecioNuevo from "../../Precio/Vista/PrecioNuevo.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -234,7 +235,8 @@ class ProductoABM {
     }
 
     btnModSPrecioOnClick(){
-        alert("Proximamente");
+        let precioNuevo = new PrecioNuevo();
+        precioNuevo.cargarVista();
     }
 
     btnHistPrecioOnClick(){
