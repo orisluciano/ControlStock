@@ -101,10 +101,18 @@ class ProductoABM {
         let btnModPrecio = document.getElementById(this.ids.btnModSPrecio);
         btnModPrecio.onclick = function(params) {
             esto.btnModSPrecioOnClick();
-        }
+        };
         let btnHistPrecio = document.getElementById(this.ids.btnHistPrecio);
         btnHistPrecio.onclick = function(params) {
             esto.btnHistPrecioOnClick();
+        };
+        let btnModStock = document.getElementById(this.ids.btnModStock);
+        btnModStock.onclick = function(params) {
+            esto.btnModStockOnClick();
+        };
+        let btnMovStock = document.getElementById(this.ids.btnMovsStock);
+        btnMovStock.onclick = function(params) {
+            esto.btnMovsStockOnClick();
         }
     }
 
@@ -244,6 +252,13 @@ class ProductoABM {
         precioHist.cargarVista();
     }
 
+    btnModStockOnClick(){
+        alert();
+    }
+
+    btnMovsStockOnClick(){
+        alert();
+    }
 
     bloquearInputs(){
         let nombre = document.getElementById(this.ids.txtNomProd);
