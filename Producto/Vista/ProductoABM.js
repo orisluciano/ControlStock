@@ -8,6 +8,8 @@ import Producto from "../Aplicacion/Producto.js";
 import PrecioHistoriaVista from "../../Precio/Vista/PrecioHistorialVista.js";
 import PrecioServicio from "../../Precio/Aplicacion/PrecioServicio.js";
 import PrecioNuevo from "../../Precio/Vista/PrecioNuevo.js";
+import MovimientoStockHistorialVista from "../../MovimientoStock/Vista/MovimientoStockHistorialVista.js";
+import MovimientoStockModVista from "../../MovimientoStock/Vista/MovimientoStockModVista.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -253,11 +255,13 @@ class ProductoABM {
     }
 
     btnModStockOnClick(){
-        alert();
+        let modStock = new MovimientoStockModVista();
+        modStock.cargarVista();
     }
 
     btnMovsStockOnClick(){
-        alert();
+        let movHist = new MovimientoStockHistorialVista();
+        movHist.cargarVista();
     }
 
     bloquearInputs(){
