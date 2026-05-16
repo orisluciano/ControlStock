@@ -10,6 +10,7 @@ import PrecioServicio from "../../Precio/Aplicacion/PrecioServicio.js";
 import PrecioNuevo from "../../Precio/Vista/PrecioNuevo.js";
 import MovimientoStockHistorialVista from "../../MovimientoStock/Vista/MovimientoStockHistorialVista.js";
 import MovimientoStockModVista from "../../MovimientoStock/Vista/MovimientoStockModVista.js";
+import StockServicio from "../../Stock/Aplicacion/StockServicio.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -47,6 +48,7 @@ class ProductoABM {
     productoSend = new Producto();
     prodService = new ProductoServicio();
     precioService = new PrecioServicio();
+    stockService = new StockServicio();
 
     constructor(operacion, producto) {
         this.operacion = operacion
@@ -60,20 +62,40 @@ class ProductoABM {
         root.innerHTML = res;
         this.cargarFunciones();
         await this.cargarPrecio();
+        await this.cargarStock();
         this.mostrarDatos();
     }
 
     async cargarPrecio(){
         let res = await this.precioService.getUltimoPrecio(this.producto.id);
+        let txtCosto = document.getElementById(this.ids.txtPrecioCosto);
+        txtCosto.value = "";
+        let txtVenta = document.getElementById(this.ids.txtPrecioVenta);
+        txtVenta.value = "";
         if (res.errores.length > 0) {
-            
+            let mensajes = "";
+            res.errores.forEach(e => {
+                mensajes = mensajes + e;
+            });
+            txtCosto.value = mensajes;
         }else{
-            let txtCosto = document.getElementById(this.ids.txtPrecioCosto);
-            txtCosto.value = "";
             txtCosto.value = "Costo: $" + res.respuesta.resultados[0].costo;
-            let txtVenta = document.getElementById(this.ids.txtPrecioVenta);
-            txtVenta.value = "";
             txtVenta.value = "Venta: $" + res.respuesta.resultados[0].venta;
+        }
+    }
+
+    async cargarStock(){
+        let res = await this.stockService.getByProductoId(this.producto.id);
+        let txtStock = document.getElementById(this.ids.txtStockProd);
+        txtStock.value = "";
+        if (res.errores.length > 0) {
+            let mensajes = "";
+            res.errores.forEach(e => {
+                mensajes = mensajes + e;
+            });
+            txtStock.value = mensajes
+        }else{
+            txtStock.value = res.respuesta[0].actual + " " + res.respuesta[0].tipoStockId + " Minimo: " + res.respuesta[0].minimo + " Maximo: " + res.respuesta[0].maximo;
         }
     }
 
