@@ -267,7 +267,7 @@ class ProductoABM {
     }
 
     btnModSPrecioOnClick(){
-        let precioNuevo = new PrecioNuevo();
+        let precioNuevo = new PrecioNuevo(this.producto.id);
         precioNuevo.cargarVista();
     }
 

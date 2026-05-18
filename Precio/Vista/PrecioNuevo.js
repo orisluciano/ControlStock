@@ -1,29 +1,20 @@
-/*import ModalBase from "../../Utiles/Modal/ModalBase.js";
-import Operaciones from "../../Utiles/Operaciones.js";
-import Usuario from "../Aplicacion/Usuario.js";
-import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";*/
-
 import ModalBase from "../../Utiles/Modal/ModalBase.js";
+import Precio from "../Aplicacion/Precio.js";
+import PrecioServicio from "../Aplicacion/PrecioServicio.js";
 
 class PrecioNuevo {
     archivo = "./Precio/Vista/PrecioNuevo.html";
     ids = {
-        operacionUser : "operacionUser",
-        btnOpUser : "btnOpUser",
-        txtUserABM : "txtUserABM",
-        txtBloqUser : "txtBloqUser",
-        txtMailUser : "txtMailUser",
-        divErroresUser : "divErroresUser"
+        txtPrecioCosto : "txtPrecioCosto",
+        txtPrecioVenta : "txtPrecioVenta",
+        divErroresPrecio : "divErroresPrecio",
+        btnPrecioNuevo : "btnPrecioNuevo"
     };
-    /*userService = new UsuarioServicio();
-    operaciones = new Operaciones();
-    operacion = null;
-    usuario = null;
-    userSend = new Usuario();*/
+    precio = new Precio();
+    precioServicio = new PrecioServicio();
 
-    constructor(operacion, usuario) {
-        this.operacion = operacion
-        this.usuario = usuario;
+    constructor(productoId) {
+        this.precio.productoId = productoId;
     }
 
     async cargarVista(){
@@ -31,16 +22,15 @@ class PrecioNuevo {
         let vista = await dir.text();
         let modal = new ModalBase();
         await modal.abrirModal(vista);
-        //this.cargarFunciones();
+        this.cargarFunciones();
         //this.mostrarDatos();
     }
 
     cargarFunciones(){
         let esto = this;
-        let btnOpUser = document.getElementById(this.ids.btnOpUser);
-        btnOpUser.innerHTML = this.operacion;
-        btnOpUser.onclick = function(params) {
-            esto.btnOpUserOnclick();
+        let btnNuevo = document.getElementById(this.ids.btnPrecioNuevo);
+        btnNuevo.onclick = function(params) {
+            esto.btnPrecioNuevoOnClick();
         };
     }
 
@@ -61,36 +51,11 @@ class PrecioNuevo {
         }
     }
 
-    async btnOpUserOnclick(){
-        let mensaje = "¿Desea " + this.operacion + " este usuario?";
-        let base = null;
-        if (confirm(mensaje)) {
-            switch (this.operacion) {
-                case this.operaciones.crear:
-                    base = await this.userService.nuevo(this.userSend);
-                    break;
-                case this.operaciones.modificar:
-                    base = await this.userService.modificar(this.userSend);
-                    break;
-                case this.operaciones.eliminar:
-                    base = await this.userService.eliminar(this.userSend);
-                    break;
-                default:
-                    break;
-            }
-            if (base.mensajes.lenght > 0) {
-                alert(base.mensajes[0]);
-            } else {
-                let divErrores = document.getElementById(this.ids.divErroresUser);
-                divErrores.innerHTML = "";
-                alert("Hubo un error...");
-                base.errores.forEach(e => {
-                    let error = document.createElement("span");
-                    error.innerHTML = e;
-                    divErrores.appendChild(error);
-                });
-            }
-        }
+    async btnPrecioNuevoOnClick(){
+        let txtCosto = document.getElementById(this.ids.txtPrecioCosto);
+        this.precio.costo = txtCosto.value;
+        let txtVenta = document.getElementById(this.ids.txtPrecioVenta);
+        this.precio.venta = txtVenta.value;
     }
 }
 export default PrecioNuevo;
