@@ -64,6 +64,7 @@ class ProductoABM {
         await this.cargarPrecio();
         await this.cargarStock();
         this.mostrarDatos();
+        this.bloquearInputs();
     }
 
     async cargarPrecio(){
