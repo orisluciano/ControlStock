@@ -5,13 +5,14 @@ import PrecioServicio from "../Aplicacion/PrecioServicio.js";
 class PrecioNuevo {
     archivo = "./Precio/Vista/PrecioNuevo.html";
     ids = {
-        txtPrecioCosto : "txtPrecioCosto",
-        txtPrecioVenta : "txtPrecioVenta",
+        txtPrecioCostoNuevo : "txtPrecioCostoNuevo",
+        txtPrecioVentaNuevo : "txtPrecioVentaNuevo",
         divErroresPrecio : "divErroresPrecio",
         btnPrecioNuevo : "btnPrecioNuevo"
     };
     precio = new Precio();
     precioServicio = new PrecioServicio();
+    modal = new ModalBase();
 
     constructor(productoId) {
         this.precio.productoId = productoId;
@@ -20,8 +21,8 @@ class PrecioNuevo {
     async cargarVista(){
         let dir = await fetch(this.archivo);
         let vista = await dir.text();
-        let modal = new ModalBase();
-        await modal.abrirModal(vista);
+        //let modal = new ModalBase();
+        await this.modal.abrirModal(vista);
         this.cargarFunciones();
         //this.mostrarDatos();
     }
@@ -52,10 +53,21 @@ class PrecioNuevo {
     }
 
     async btnPrecioNuevoOnClick(){
-        let txtCosto = document.getElementById(this.ids.txtPrecioCosto);
+        let txtCosto = document.getElementById(this.ids.txtPrecioCostoNuevo);
         this.precio.costo = txtCosto.value;
-        let txtVenta = document.getElementById(this.ids.txtPrecioVenta);
+        let txtVenta = document.getElementById(this.ids.txtPrecioVentaNuevo);
         this.precio.venta = txtVenta.value;
+        let base = await this.precioServicio.nuevo(this.precio);
+        if (base.errores.length > 0) {
+            base.errores.forEach(e => {
+                alert(e);
+            });
+        } else {
+            base.mensajes.forEach(e => {
+                alert(e);
+            });
+            this.modal.cerrarModal();
+        }
     }
 }
 export default PrecioNuevo;
