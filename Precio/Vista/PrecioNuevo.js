@@ -1,3 +1,4 @@
+import ProductoABM from "../../Producto/Vista/ProductoABM.js";
 import ModalBase from "../../Utiles/Modal/ModalBase.js";
 import Precio from "../Aplicacion/Precio.js";
 import PrecioServicio from "../Aplicacion/PrecioServicio.js";
@@ -13,9 +14,11 @@ class PrecioNuevo {
     precio = new Precio();
     precioServicio = new PrecioServicio();
     modal = new ModalBase();
+    producto = null;
 
-    constructor(productoId) {
-        this.precio.productoId = productoId;
+    constructor(producto) {
+        this.precio.productoId = producto.id
+        this.producto = producto;
     }
 
     async cargarVista(){
@@ -67,6 +70,8 @@ class PrecioNuevo {
                 alert(e);
             });
             this.modal.cerrarModal();
+            let abm = new ProductoABM(null, this.producto);
+            abm.cargarVista();
         }
     }
 }
