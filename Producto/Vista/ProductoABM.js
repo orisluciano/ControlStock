@@ -11,6 +11,7 @@ import PrecioNuevo from "../../Precio/Vista/PrecioNuevo.js";
 import MovimientoStockHistorialVista from "../../MovimientoStock/Vista/MovimientoStockHistorialVista.js";
 import MovimientoStockModVista from "../../MovimientoStock/Vista/MovimientoStockModVista.js";
 import StockServicio from "../../Stock/Aplicacion/StockServicio.js";
+import StockConfigVista from "../../Stock/Vista/StockConfigVista.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -31,6 +32,7 @@ class ProductoABM {
         btnModSPrecio : "btnModSPrecio",
         btnHistPrecio : "btnHistPrecio",
         txtStockProd : "txtStockProd",
+        btnConfigStock : "btnConfigStock",
         btnModStock : "btnModStock",
         btnMovsStock : "btnMovsStock",
         divPrecio : "divPrecio",
@@ -123,6 +125,10 @@ class ProductoABM {
         btnCancelProd.onclick = function(params) {
             esto.btnCancelProdOnClick();
         };
+        let btnConfigPrecio = document.getElementById(this.ids.btnConfigStock);
+        btnConfigPrecio.onclick = function(params) {
+            esto.btnConfigStockOnclick();
+        }
         let btnModPrecio = document.getElementById(this.ids.btnModSPrecio);
         btnModPrecio.onclick = function(params) {
             esto.btnModSPrecioOnClick();
@@ -275,6 +281,11 @@ class ProductoABM {
     btnHistPrecioOnClick(){
         let precioHist = new PrecioHistoriaVista(this.producto.id);
         precioHist.cargarVista();
+    }
+
+    btnConfigStockOnclick(){
+        let configStock = new StockConfigVista();
+        configStock.cargarVista();
     }
 
     btnModStockOnClick(){
