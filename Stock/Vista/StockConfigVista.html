@@ -1,52 +1,25 @@
 <div class="displayBlock centrarContenido padding15">
-    <div class="divEspaciado">
-        <button id="btnVolverProd" class="btnCrud">Volver</button>
-        <button id="btnModProd" class="btnCrud">Modificar</button>
-        <button id="btnElimProd" class="btnCrud">Eliminar</button>
-    </div>
     <div class="displayFlex centrarContenido">
-        <h2 id="operacionProd">Operacion</h2>
+        <h2 id="operacionStockConfig">Operacion</h2>
     </div>
     <div>
         <div class="borderDivInput marginBotton10">
-            <span class="colorSec padding5">Foto</span>
-            <input type="image" id="txtImgProd" class="inputText" placeholder="Foto">
+            <span class="colorSec padding5">Stock Minimo</span>
+            <input type="text" id="txtStockMinimo" class="inputText" placeholder="Stock minimo">
         </div>
         <div class="borderDivInput marginBotton10">
-            <span class="colorSec padding5">Nombre</span>
-            <input type="text" id="txtNomProd" class="inputText" placeholder="Nombre">
+            <span class="colorSec padding5">Stock Maximo</span>
+            <input type="text" id="txtStockMaximo" class="inputText" placeholder="Stock Maximo">
         </div>
         <div class="borderDivInput marginBotton10">
-            <span class="colorSec padding5">Descripcion</span>
-            <input type="text" id="txtDescProd" class="inputText" placeholder="Descripcion">
-        </div>
-        <div class="borderDivInput marginBotton10">
-            <span class="colorSec padding5">Codigo</span>
-            <input type="text" id="txtCodProd" class="inputText" placeholder="Codigo">
-        </div>
-        <div class="borderDivInput marginBotton10">
-            <span class="colorSec padding5">Tipo de Producto</span>
-            <select id="slcTipoProd" class="inputText">
+            <span class="colorSec padding5">Tipo de stock</span>
+            <select id="slcTipoStock" class="inputText">
                 <option value="0">Vacio</option>
             </select>
         </div>
-        <div class="borderDivInput marginBotton10" id="divPrecio">
-            <span class="colorSec padding5">Precio</span>
-            <input type="text" id="txtPrecioCosto" class="inputText" placeholder="Costo" disabled>
-            <input type="text" id="txtPrecioVenta" class="inputText" placeholder="Venta" disabled>
-            <button id="btnModSPrecio" class="btnCrud cabecera">Modificar</button>
-            <button id="btnHistPrecio" class="btnCrud cabecera">Historial</button>
-        </div>
-        <div class="borderDivInput marginBotton10" id="divStock">
-            <span class="colorSec padding5">Stock</span>
-            <input type="text" id="txtStockProd" class="inputText" placeholder="Codigo" disabled>
-            <button id="btnModStock" class="btnCrud cabecera">Modificar</button>
-            <button id="btnMovsStock" class="btnCrud cabecera">Movimientos</button>
-        </div>
-        <div class="" id="divErroresProd"></div>
+        <div class="" id="divErroresStockConfig"></div>
         <div class="displayFlex">
-            <button id="btnOpProd" class="btnRelleno cabecera">Crear</button>
-            <button id="btnCancelProd" class="btnRelleno cabecera">Cancelar</button>
+            <button id="btnOpStockConfig" class="btnRelleno cabecera">Crear</button>
         </div>
     </div>
 </div>

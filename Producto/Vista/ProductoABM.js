@@ -51,6 +51,7 @@ class ProductoABM {
     prodService = new ProductoServicio();
     precioService = new PrecioServicio();
     stockService = new StockServicio();
+    stock = null;
 
     constructor(operacion, producto) {
         this.operacion = operacion
@@ -99,6 +100,7 @@ class ProductoABM {
             txtStock.value = mensajes
         }else{
             txtStock.value = res.respuesta[0].actual + " " + res.respuesta[0].tipoStockId + " Minimo: " + res.respuesta[0].minimo + " Maximo: " + res.respuesta[0].maximo;
+            this.stock = res.respuesta[0];
         }
     }
 
@@ -284,7 +286,7 @@ class ProductoABM {
     }
 
     btnConfigStockOnclick(){
-        let configStock = new StockConfigVista();
+        let configStock = new StockConfigVista(this.stock, this.producto);
         configStock.cargarVista();
     }
 

@@ -1,54 +1,72 @@
-/*import ModalBase from "../../Utiles/Modal/ModalBase.js";
-import Operaciones from "../../Utiles/Operaciones.js";
-import Usuario from "../Aplicacion/Usuario.js";
-import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";*/
-
+import ProductoABM from "../../Producto/Vista/ProductoABM.js";
 import ModalBase from "../../Utiles/Modal/ModalBase.js";
+import Operaciones from "../../Utiles/Operaciones.js";
+import Stock from "../Aplicacion/Stock.js";
+import StockServicio from "../Aplicacion/StockServicio.js";
 
 class StockConfigVista {
     archivo = "./Stock/Vista/StockConfigVista.html";
     ids = {
-        operacionUser : "operacionUser",
-        btnOpUser : "btnOpUser",
-        txtUserABM : "txtUserABM",
-        txtBloqUser : "txtBloqUser",
-        txtMailUser : "txtMailUser",
-        divErroresUser : "divErroresUser"
+        operacionStockConfig : "operacionStockConfig",
+        txtStockMinimo : "txtStockMinimo",
+        txtStockMaximo : "txtStockMaximo",
+        slcTipoStock : "slcTipoStock",
+        divErroresStockConfig : "divErroresStockConfig",
+        btnOpStockConfig : "btnOpStockConfig"
     };
-    /*userService = new UsuarioServicio();
     operaciones = new Operaciones();
     operacion = null;
-    usuario = null;
-    userSend = new Usuario();*/
+    stock = null;
+    producto = null;
+    stockService = new StockServicio();
+    stockSend = new Stock();
+    modal = new ModalBase();
 
-    constructor(operacion, usuario) {
-        this.operacion = operacion
-        this.usuario = usuario;
+    constructor(stock, producto) {
+        this.stock = stock;
+        this.producto = producto;
     }
 
     async cargarVista(){
         let dir = await fetch(this.archivo);
         let vista = await dir.text();
-        let modal = new ModalBase();
-        await modal.abrirModal(vista);
-        //this.cargarFunciones();
-        //this.mostrarDatos();
+        await this.modal.abrirModal(vista);
+        this.mostrarDatos();
+        this.cargarFunciones();
     }
 
     cargarFunciones(){
         let esto = this;
-        let btnOpUser = document.getElementById(this.ids.btnOpUser);
-        btnOpUser.innerHTML = this.operacion;
-        btnOpUser.onclick = function(params) {
-            esto.btnOpUserOnclick();
+        let btnOpStock = document.getElementById(this.ids.btnOpStockConfig);
+        btnOpStock.innerHTML = this.operacion;
+        btnOpStock.onclick = function(params) {
+            esto.btnOpStockConfig();
         };
     }
 
     mostrarDatos(){
-        let operacion = document.getElementById(this.ids.operacionUser);
+        let mensaje = " configuracion de stock";
+        let operacion = document.getElementById(this.ids.operacionStockConfig);
         operacion.innerHTML = "";
-        operacion.innerHTML = this.operacion + " usuario";
-        if (this.operacion != this.operaciones.crear) {
+        let btn = document.getElementById(this.ids.btnOpStockConfig);
+        btn.innerHTML = "";
+        if (this.stock !== null) {
+            operacion.innerHTML = this.operaciones.modificar + mensaje;
+            let minimo = document.getElementById(this.ids.txtStockMinimo);
+            minimo.value = this.stock.minimo;
+            let maximo = document.getElementById(this.ids.txtStockMaximo);
+            maximo.value = this.stock.maximo;
+            let tipo = document.getElementById(this.ids.slcTipoStock);
+            tipo.value = this.stock.tipoStockId;
+            tipo.innerHTML = this.stock.tipoStockId;
+            btn.innerHTML = this.operaciones.modificar;
+            this.operacion = this.operaciones.modificar;
+        } else {
+            operacion.innerHTML = this.operaciones.crear + mensaje;
+            btn.innerHTML = this.operaciones.crear;
+            this.operacion = this.operaciones.crear;
+        }
+        /*if (this.operacion != this.operaciones.crear) {
             let nombre = document.getElementById(this.ids.txtUserABM);
             nombre.innerHTML = "";
             nombre.value = this.usuario.usuario;
@@ -58,30 +76,40 @@ class StockConfigVista {
             mail.disabled = true;
             let bloqueado = document.getElementById(this.ids.txtBloqUser);
             bloqueado.value = this.usuario.bloqueado;   
-        }
+        }*/
     }
 
-    async btnOpUserOnclick(){
-        let mensaje = "¿Desea " + this.operacion + " este usuario?";
+    async btnOpStockConfig(){
+        let mensaje = "¿Desea " + this.operacion + " esta configuracion de stock?";
         let base = null;
         if (confirm(mensaje)) {
+            let minimo = document.getElementById(this.ids.txtStockMinimo);
+            this.stockSend.minimo = minimo.value;
+            let maximo = document.getElementById(this.ids.txtStockMaximo);
+            this.stockSend.maximo = maximo.value;
+            let tipo = document.getElementById(this.ids.slcTipoStock);
+            this.stockSend.tipoStockId = tipo.value;
+            this.stockSend.productoId = this.producto.id;
             switch (this.operacion) {
                 case this.operaciones.crear:
-                    base = await this.userService.nuevo(this.userSend);
+                    base = await this.stockService.nuevo(this.stockSend);
                     break;
                 case this.operaciones.modificar:
-                    base = await this.userService.modificar(this.userSend);
+                    this.stockSend.id = this.stock.id;
+                    base = await this.stockService.modificar(this.stockSend);
                     break;
                 case this.operaciones.eliminar:
-                    base = await this.userService.eliminar(this.userSend);
                     break;
                 default:
                     break;
             }
-            if (base.mensajes.lenght > 0) {
+            if (base.mensajes.length > 0) {
                 alert(base.mensajes[0]);
+                this.modal.cerrarModal();
+                let abm = new ProductoABM("ver", this.producto);
+                abm.cargarVista();
             } else {
-                let divErrores = document.getElementById(this.ids.divErroresUser);
+                let divErrores = document.getElementById(this.ids.divErroresStockConfig);
                 divErrores.innerHTML = "";
                 alert("Hubo un error...");
                 base.errores.forEach(e => {

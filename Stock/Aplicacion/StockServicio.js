@@ -30,18 +30,18 @@ class StockServicio {
         return json;
     }
 
-    async nuevo(producto){
-        let base = await this.peticiones.peticionesVarias(this.api, "POST", producto, "");
+    async nuevo(stock){
+        let base = await this.peticiones.peticionesVarias(this.api, "POST", stock, "");
         return await base;
     }
 
-    async modificar(producto){
-        let base = await this.peticiones.peticionesVarias(this.api, "PUT", producto, "");
+    async modificar(stock){
+        let base = await this.peticiones.peticionesVarias(this.api, "PUT", stock, "");
         return await base;
     }
 
-    async eliminar(producto){
-        let base = await this.peticiones.peticionesVarias(this.api, "DELETE", producto, "");
+    async eliminar(stock){
+        let base = await this.peticiones.peticionesVarias(this.api, "DELETE", stock, "");
         return await base;
     }
 }
