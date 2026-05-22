@@ -96,6 +96,7 @@ class StockConfigVista {
                     break;
                 case this.operaciones.modificar:
                     this.stockSend.id = this.stock.id;
+                    this.stockSend.actual = this.stock.actual;
                     base = await this.stockService.modificar(this.stockSend);
                     break;
                 case this.operaciones.eliminar:
