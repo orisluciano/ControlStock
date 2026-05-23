@@ -1,4 +1,5 @@
 import ProductoABM from "../../Producto/Vista/ProductoABM.js";
+import TipoStockServicio from "../../TipoStock/Aplicacion/TipoStockServicio.js";
 import ModalBase from "../../Utiles/Modal/ModalBase.js";
 import Operaciones from "../../Utiles/Operaciones.js";
 import Stock from "../Aplicacion/Stock.js";
@@ -21,6 +22,7 @@ class StockConfigVista {
     stockService = new StockServicio();
     stockSend = new Stock();
     modal = new ModalBase();
+    tipoStockService = new TipoStockServicio();
 
     constructor(stock, producto) {
         this.stock = stock;
@@ -33,6 +35,7 @@ class StockConfigVista {
         await this.modal.abrirModal(vista);
         this.mostrarDatos();
         this.cargarFunciones();
+        await this.cargarSlcTipoStock();
     }
 
     cargarFunciones(){
@@ -77,6 +80,23 @@ class StockConfigVista {
             let bloqueado = document.getElementById(this.ids.txtBloqUser);
             bloqueado.value = this.usuario.bloqueado;   
         }*/
+    }
+
+    async cargarSlcTipoStock(){
+        let slcTipoStock = document.getElementById(this.ids.slcTipoStock);
+        let res = await this.tipoStockService.getTodo();
+        if (res.errores.length > 0) {
+            let error = document.createElement("option");
+            error.innerHTML = res.errores[0];
+            slcTipoStock.appendChild(error);
+        }else{
+            res.resultados.forEach(e => {
+                let opcion = document.createElement("option");
+                opcion.innerHTML = e.descripcion;
+                opcion.value = e.id;
+                slcTipoStock.appendChild(opcion);
+            });
+        }
     }
 
     async btnOpStockConfig(){
