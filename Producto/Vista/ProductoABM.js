@@ -99,8 +99,8 @@ class ProductoABM {
             });
             txtStock.value = mensajes
         }else{
-            txtStock.value = res.respuesta[0].actual + " " + res.respuesta[0].tipoStockId + " Minimo: " + res.respuesta[0].minimo + " Maximo: " + res.respuesta[0].maximo;
-            this.stock = res.respuesta[0];
+            txtStock.value = res.respuesta.stock.actual + " " + res.respuesta.tipoStock.descripcion + " Minimo: " + res.respuesta.stock.minimo + " Maximo: " + res.respuesta.stock.maximo;
+            this.stock = res.respuesta.stock;
         }
     }
 
