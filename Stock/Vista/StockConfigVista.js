@@ -90,11 +90,14 @@ class StockConfigVista {
             error.innerHTML = res.errores[0];
             slcTipoStock.appendChild(error);
         }else{
-            res.resultados.forEach(e => {
+            res.respuesta.forEach(e => {
                 let opcion = document.createElement("option");
                 opcion.innerHTML = e.descripcion;
                 opcion.value = e.id;
                 slcTipoStock.appendChild(opcion);
+                if (this.stock != null && this.stock.tipoStockId === e.id) {
+                    opcion.selected = true;
+                }
             });
         }
     }
