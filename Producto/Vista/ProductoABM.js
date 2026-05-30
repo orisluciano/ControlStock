@@ -296,7 +296,7 @@ class ProductoABM {
     }
 
     btnMovsStockOnClick(){
-        let movHist = new MovimientoStockHistorialVista();
+        let movHist = new MovimientoStockHistorialVista(this.stock.id);
         movHist.cargarVista();
     }
 

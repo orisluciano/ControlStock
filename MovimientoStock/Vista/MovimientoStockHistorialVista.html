@@ -1,23 +1,24 @@
 <div>
     <div class="displayFlex centrarContenido">
-        <h1 class="cabecera">Precios</h1></div>
+        <h1 class="cabecera">Movimientos de Stock</h1></div>
     <div class="padding10 displayFlex">
         <div class="borderDivInput">
-            <input type="date" name="" id="txtDesde" class="inputText" placeholder="Desde">
+            <input type="date" name="" id="txtDesdeMov" class="inputText" placeholder="Desde">
         </div>
         <div class="borderDivInput">
-            <input type="date" name="" id="txtHasta" class="inputText" placeholder="Hasta">
+            <input type="date" name="" id="txtHastaMov" class="inputText" placeholder="Hasta">
         </div>
-        <button id="btnBuscarPrecio" class="btnCrud cabecera">Buscar</button>
+        <button id="btnBuscarMov" class="btnCrud cabecera">Buscar</button>
     </div>
     <div class="divTabla">
         <table>
             <thead>
-                <th>Costo</th>
-                <th>Venta</th>
+                <th>Cantidad</th>
+                <th>Tipo Movimiento</th>
+                <th>Motivo</th>
                 <th>Fecha</th>
             </thead>
-            <tbody id="tblPrecio"></tbody>
+            <tbody id="tblMovs"></tbody>
         </table>  
     </div>
     <div id="divPaginacion" class="padding10"></div>
