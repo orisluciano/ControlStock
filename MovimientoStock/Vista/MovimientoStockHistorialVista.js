@@ -73,10 +73,10 @@ class MovimientoStockHistorialVista {
         colCant.innerHTML = mov.cantidad;
         linea.appendChild(colCant);
         let colTipoMov = document.createElement("td");
-        colTipoMov.innerHTML = mov.tipoMovimiento;
+        colTipoMov.innerHTML = mov.tipo;
         linea.appendChild(colTipoMov);
         let colMotivo = document.createElement("td");
-        colMotivo.innerHTML = mov.colMotivo;
+        colMotivo.innerHTML = mov.motivoMovId;
         linea.appendChild(colMotivo);
         let colFecha = document.createElement("td");
         colFecha.innerHTML = mov.fechaModif;
