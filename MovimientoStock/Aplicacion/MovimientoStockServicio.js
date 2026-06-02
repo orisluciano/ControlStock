@@ -16,5 +16,10 @@ class MovimientoStockServicio {
         let json = await peticion.json();
         return json;
     }
+
+    async nuevoMov(movimiento){
+        let base = await this.peticiones.peticionesVarias(this.api, "POST", movimiento, "");
+        return await base;  
+    }
 }
 export default MovimientoStockServicio;

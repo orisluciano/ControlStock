@@ -4,26 +4,28 @@ import Usuario from "../Aplicacion/Usuario.js";
 import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";*/
 
 import ModalBase from "../../Utiles/Modal/ModalBase.js";
+import MovimientoStockServicio from "../Aplicacion/MovimientoStockServicio.js";
 
 class MovimientoStockModVista {
     archivo = "./MovimientoStock/Vista/MovimientoStockModVista.html";
     ids = {
-        operacionUser : "operacionUser",
-        btnOpUser : "btnOpUser",
-        txtUserABM : "txtUserABM",
-        txtBloqUser : "txtBloqUser",
-        txtMailUser : "txtMailUser",
-        divErroresUser : "divErroresUser"
+        txtCantidadMov : "txtCantidadMov",
+        slcTipoMov : "slcTipoMov",
+        slcMotivoMov : "slcMotivoMov",
+        divErroresMov : "divErroresMov",
+        btnMovNuevo : "btnMovNuevo"
     };
     /*userService = new UsuarioServicio();
     operaciones = new Operaciones();
     operacion = null;
     usuario = null;
     userSend = new Usuario();*/
+    movimiento = {};
+    stockId = null;
+    movService = new MovimientoStockServicio();
 
-    constructor(operacion, usuario) {
-        this.operacion = operacion
-        this.usuario = usuario;
+    constructor(stockId) {
+        this.stockId = stockId;
     }
 
     async cargarVista(){
@@ -31,16 +33,15 @@ class MovimientoStockModVista {
         let vista = await dir.text();
         let modal = new ModalBase();
         await modal.abrirModal(vista);
-        //this.cargarFunciones();
+        this.cargarFunciones();
         //this.mostrarDatos();
     }
 
     cargarFunciones(){
         let esto = this;
-        let btnOpUser = document.getElementById(this.ids.btnOpUser);
-        btnOpUser.innerHTML = this.operacion;
-        btnOpUser.onclick = function(params) {
-            esto.btnOpUserOnclick();
+        let btnNuevo = document.getElementById(this.ids.btnMovNuevo);
+        btnNuevo.onclick = function(params) {
+            esto.btnNuevoMovOnclick();
         };
     }
 
@@ -61,27 +62,22 @@ class MovimientoStockModVista {
         }
     }
 
-    async btnOpUserOnclick(){
-        let mensaje = "¿Desea " + this.operacion + " este usuario?";
+    async btnNuevoMovOnclick(){
+        let mensaje = "¿Desea crear este movimiento de stock?";
         let base = null;
+        let cant = document.getElementById(this.ids.txtCantidadMov);
+        let tipo = document.getElementById(this.ids.slcTipoMov);
+        let motivo = document.getElementById(this.ids.slcMotivoMov);
+        this.movimiento.stockId = this.stockId;
+        this.movimiento.cantidad = cant.value;
+        this.movimiento.tipo = tipo.value;
+        this.movimiento.motivoMovId = motivo.value;
         if (confirm(mensaje)) {
-            switch (this.operacion) {
-                case this.operaciones.crear:
-                    base = await this.userService.nuevo(this.userSend);
-                    break;
-                case this.operaciones.modificar:
-                    base = await this.userService.modificar(this.userSend);
-                    break;
-                case this.operaciones.eliminar:
-                    base = await this.userService.eliminar(this.userSend);
-                    break;
-                default:
-                    break;
-            }
+            base = await this.movService.nuevoMov(this.movimiento);
             if (base.mensajes.lenght > 0) {
                 alert(base.mensajes[0]);
             } else {
-                let divErrores = document.getElementById(this.ids.divErroresUser);
+                let divErrores = document.getElementById(this.ids.divErroresMov);
                 divErrores.innerHTML = "";
                 alert("Hubo un error...");
                 base.errores.forEach(e => {
