@@ -12,6 +12,7 @@ import MovimientoStockHistorialVista from "../../MovimientoStock/Vista/Movimient
 import MovimientoStockModVista from "../../MovimientoStock/Vista/MovimientoStockModVista.js";
 import StockServicio from "../../Stock/Aplicacion/StockServicio.js";
 import StockConfigVista from "../../Stock/Vista/StockConfigVista.js";
+import TipoProductoServicio from "../../TipoProducto/Aplicacion/TipoProductoServicio.js";
 //import Usuario from "../Aplicacion/Usuario.js";
 //import UsuarioServicio from "../Aplicacion/UsuarioServicio.js";
 
@@ -51,6 +52,7 @@ class ProductoABM {
     prodService = new ProductoServicio();
     precioService = new PrecioServicio();
     stockService = new StockServicio();
+    tipoProdService = new TipoProductoServicio();
     stock = null;
 
     constructor(operacion, producto) {
@@ -66,8 +68,27 @@ class ProductoABM {
         this.cargarFunciones();
         await this.cargarPrecio();
         await this.cargarStock();
+        await this.cargarTipoProd();
         this.mostrarDatos();
         this.bloquearInputs();
+    }
+
+    async cargarTipoProd(){
+        let slcTipo = document.getElementById(this.ids.slcTipoProd);
+        slcTipo.innerHTML = "";
+        let res = await this.tipoProdService.getProductos();
+        if (res.errores.length > 0) {
+            alert("No se cargaron los tipos de productos");
+        } else {
+            res.respuesta.forEach(e => {
+                let op = document.createElement("option");
+                op.value = e.id;
+                op.innerHTML = e.descripcion;
+                if(e.id === this.producto.tipoProdId){
+                    op.selected = true;
+                }
+            });
+        }
     }
 
     async cargarPrecio(){
