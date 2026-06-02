@@ -291,7 +291,7 @@ class ProductoABM {
     }
 
     btnModStockOnClick(){
-        let modStock = new MovimientoStockModVista(this.stock.id);
+        let modStock = new MovimientoStockModVista(this.stock.id, this.producto);
         modStock.cargarVista();
     }
 
