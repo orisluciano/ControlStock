@@ -178,8 +178,8 @@ class ProductoABM {
     mostrarDatos(){
         let operacion = document.getElementById(this.ids.operacionProd);
         operacion.innerHTML = "";
-        operacion.innerHTML = this.operacion + " producto";
         if (this.operacion === this.operaciones.crear) {
+            operacion.innerHTML = this.operacion + " producto";
             let divPrecio = document.getElementById(this.ids.divPrecio);
             divPrecio.style.display = "none";
             let divStock = document.getElementById(this.ids.divStock);
@@ -189,6 +189,7 @@ class ProductoABM {
             btnCancel.style.display = "none";
         }
         if (this.operacion === this.operaciones.eliminar || this.operacion === this.operaciones.ver) {
+            operacion.innerHTML = this.producto.nombre;
             let nombre = document.getElementById(this.ids.txtNomProd);
             nombre.innerHTML = "";
             nombre.value = this.producto.nombre;
