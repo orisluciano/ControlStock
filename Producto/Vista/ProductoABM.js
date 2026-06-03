@@ -87,6 +87,7 @@ class ProductoABM {
                 if(e.id === this.producto.tipoProdId){
                     op.selected = true;
                 }
+                slcTipo.appendChild(op);
             });
         }
     }
@@ -195,8 +196,8 @@ class ProductoABM {
             codigo.value = this.producto.codSKU; 
             codigo.disabled = true;
             let tipoProd = document.getElementById(this.ids.slcTipoProd);
-            tipoProd.value = this.producto.tipoProdId
-            tipoProd.innerHTML = this.producto.tipoProdId;
+            //tipoProd.value = this.producto.tipoProdId
+            //tipoProd.innerHTML = this.producto.tipoProdId;
             tipoProd.disabled = true;
             let btnOp = document.getElementById(this.ids.btnOpProd);
             btnOp.style.display = "none";
@@ -333,8 +334,8 @@ class ProductoABM {
         codigo.value = this.producto.codSKU; 
         codigo.disabled = true;
         let tipoProd = document.getElementById(this.ids.slcTipoProd);
-        tipoProd.value = this.producto.tipoProdId
-        tipoProd.innerHTML = this.producto.tipoProdId;
+        //tipoProd.value = this.producto.tipoProdId
+        //tipoProd.innerHTML = this.producto.tipoProdId;
         tipoProd.disabled = true;
         let btnOp = document.getElementById(this.ids.btnOpProd);
         btnOp.style.display = "none";
