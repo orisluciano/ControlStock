@@ -66,11 +66,15 @@ class ProductoABM {
         root.innerHTML = "";
         root.innerHTML = res;
         this.cargarFunciones();
-        await this.cargarPrecio();
-        await this.cargarStock();
+        if (this.operacion !== "Crear") {
+            await this.cargarPrecio();
+            await this.cargarStock();   
+        }
         await this.cargarTipoProd();
         this.mostrarDatos();
-        this.bloquearInputs();
+        if (this.operacion !== "Crear") {
+            this.bloquearInputs();   
+        }
     }
 
     async cargarTipoProd(){
