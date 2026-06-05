@@ -1,3 +1,4 @@
+import EscanerVista from "../Escaner/Vista/EscanerVista.js";
 import Inicio from "../Inicio/Inicio.js";
 import ProductoVista from "../Producto/Vista/ProductoVista.js";
 import Formulario from "../Utiles/Formulario.js";
@@ -101,7 +102,8 @@ class MenuVista {
     }
 
     btnEscanerOnClick(){
-        alert("Proximamente");
+        let escanerVista = new EscanerVista();
+        escanerVista.cargarVista();
     }
 }
 
