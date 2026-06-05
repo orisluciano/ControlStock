@@ -13,7 +13,8 @@ class MenuVista {
         btnTipoProducto : "btnTipoProducto",
         btnPrecio : "btnPrecio",
         btnMovimiento : "btnMovimiento",
-        btnTipoMovimiento : "btnTipoMovimiento"
+        btnTipoMovimiento : "btnTipoMovimiento",
+        btnEscaner : "btnEscaner"
     };
     form = new Formulario();
     ident = new Identificadores();
@@ -39,7 +40,11 @@ class MenuVista {
         let btnProducto = document.getElementById(this.ids.btnProducto);
         btnProducto.onclick = function() {
             esto.btnProductoOnClick();
-        }
+        };
+        let btnEscaner = document.getElementById(this.ids.btnEscaner);
+        btnEscaner.onclick = function() {
+            esto.btnEscanerOnClick();
+        };
     }
 
     btnPerfilOnClick(){
@@ -93,6 +98,10 @@ class MenuVista {
     btnProductoOnClick(){
         let prodVista = new ProductoVista();
         prodVista.cargarVista();
+    }
+
+    btnEscanerOnClick(){
+        alert("Proximamente");
     }
 }
 
