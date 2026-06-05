@@ -1,7 +1,7 @@
 import PeticionesHttp from "../../Utiles/PeticionesHttp.js";
 
 class PrecioServicio {
-    api = "http://localhost/BackendControlStock/api/precio";
+    api = window.location.origin + "/BackendControlStock/api/precio";
     peticiones = new PeticionesHttp();
 
     constructor(parameters) {
