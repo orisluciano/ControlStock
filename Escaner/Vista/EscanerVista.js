@@ -11,7 +11,9 @@ class EscanerVista {
     form = new Formulario();
     ident = new Identificadores();
     
-    constructor() {}
+    constructor() {
+        let pagina = "https://medium.com/js-now/creating-a-real-time-qr-code-scanner-with-vanilla-javascript-part-1-2-creating-the-scanner-a8934ee8f614";
+    }
     
     async cargarVista(){
         let res = await this.form.getForm(this.archivo);
@@ -22,7 +24,26 @@ class EscanerVista {
     }
 
     cargarFunciones(){
-        window.addEventListener('DOMContentLoaded', this.iniciarEscaner());
+        //window.addEventListener('DOMContentLoaded', this.iniciarEscaner());
+        if (!("BarcodeDetector" in globalThis)) {
+            alert("Barcode Detector is not supported by this browser.");
+        } else {
+            alert("Barcode Detector supported!");
+            const video = document.getElementById(this.ids.camara);
+            // Check if device has camera
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            // Use video without audio
+            const constraints = { 
+            video: {facingMode: { exact: "environment" }}, // Selecciona la cámara trasera
+            // },
+            audio: false
+            }
+  
+            // Start video stream
+        navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
+        }
+        }
+        let bar = new BarcodeDetector();
     }
 
     async iniciarEscaner() {
