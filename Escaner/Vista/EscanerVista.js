@@ -43,7 +43,36 @@ class EscanerVista {
         navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
         }
         }
-        let bar = new BarcodeDetector();
+        setInterval(this.detectar, 100);
+    }
+
+    detectar(){
+        let resulta = document.getElementById(this.ids.divResult);
+        // Create new barcode detector
+        let formats;
+// Save all formats to formats var 
+BarcodeDetector.getSupportedFormats().then(arr => formats = arr);
+// Create new barcode detector with all supported formats
+const barcodeDetector = new BarcodeDetector({ formats });
+
+// Detect code function 
+const detectCode = () => {
+  // Start detecting codes on to the video element
+  barcodeDetector.detect(video).then(codes => {
+    // If no codes exit function
+    if (codes.length === 0) return;
+    
+    for (const barcode of codes)  {
+      // Log the barcode to the console
+      console.log(barcode)
+      resulta.innerHTML = barcode;
+    }
+  }).catch(err => {
+    // Log an error if one happens
+    console.error(err);
+    resulta.innerHTML = err;
+  })
+}
     }
 
     async iniciarEscaner() {
