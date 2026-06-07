@@ -40,39 +40,70 @@ class EscanerVista {
             }
   
             // Start video stream
-        navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
+            navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
+            this.detectar(video);
+            }
         }
-        }
-        setInterval(this.detectar, 100);
+        //setInterval(this.intervalo, 1000);
     }
 
-    detectar(){
+    intervalo(){
+        this.detectar();
+    }
+
+    detectar(video){alert("desde deteccion");
         let resulta = document.getElementById(this.ids.divResult);
+        resulta.innerHTML = "Escaneame esta";
         // Create new barcode detector
         let formats;
-// Save all formats to formats var 
-BarcodeDetector.getSupportedFormats().then(arr => formats = arr);
-// Create new barcode detector with all supported formats
-const barcodeDetector = new BarcodeDetector({ formats });
+        // Save all formats to formats var 
+        BarcodeDetector.getSupportedFormats().then(arr => formats = arr);
+        // Create new barcode detector with all supported formats
+        const barcodeDetector = new BarcodeDetector({ formats });
 
-// Detect code function 
-const detectCode = () => {
-  // Start detecting codes on to the video element
-  barcodeDetector.detect(video).then(codes => {
-    // If no codes exit function
-    if (codes.length === 0) return;
+        // Detect code function 
+        const detectCode = () => {
+        // Start detecting codes on to the video element
+        barcodeDetector.detect(video).then(codes => {
+        // If no codes exit function
+        if (codes.length === 0){
+            resulta.innerHTML = "sin resultados";
+            return;
+        } 
     
-    for (const barcode of codes)  {
-      // Log the barcode to the console
-      console.log(barcode)
-      resulta.innerHTML = barcode;
+        for (const barcode of codes)  {
+            // Log the barcode to the console
+            console.log(barcode)
+            resulta.innerHTML = barcode.format + ": " + barcode.rawValue;
+        }
+        }).catch(err => {
+        // Log an error if one happens
+        console.error(err);
+        resulta.innerHTML = err;
+        })
+        }
+        setInterval(detectCode, 100);
     }
-  }).catch(err => {
-    // Log an error if one happens
-    console.error(err);
-    resulta.innerHTML = err;
-  })
-}
+
+    sonidoPrueba(){
+        // 1. Crear el contexto de audio
+        const audioCtx = new AudioContext();
+
+        // 2. Crear un oscilador
+        const oscilador = audioCtx.createOscillator();
+
+        // 3. Configurar el tipo de onda y frecuencia (ej. 440 Hz es un La)
+        oscilador.type = 'sine'; // 'sine', 'square', 'triangle', 'sawtooth'
+        oscilador.frequency.value = 440;
+
+        // 4. Conectar el oscilador a los altavoces
+        oscilador.connect(audioCtx.destination);
+
+        // 5. Reproducir
+        oscilador.start();
+
+        // 6. Detener a los 2 segundos
+        oscilador.stop(audioCtx.currentTime + 2);
     }
 
     async iniciarEscaner() {
