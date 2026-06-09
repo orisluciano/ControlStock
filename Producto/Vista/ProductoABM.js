@@ -178,6 +178,7 @@ class ProductoABM {
     mostrarDatos(){
         let operacion = document.getElementById(this.ids.operacionProd);
         operacion.innerHTML = "";
+        let codigo = document.getElementById(this.ids.txtCodProd);
         if (this.operacion === this.operaciones.crear) {
             operacion.innerHTML = this.operacion + " producto";
             let divPrecio = document.getElementById(this.ids.divPrecio);
@@ -187,6 +188,9 @@ class ProductoABM {
             this.bloquearBotones();
             let btnCancel = document.getElementById(this.ids.btnCancelProd);
             btnCancel.style.display = "none";
+            if (Object.hasOwn(this.producto, "codigo")) {
+                codigo.value = this.producto.codigo;
+            }
         }
         if (this.operacion === this.operaciones.eliminar || this.operacion === this.operaciones.ver) {
             operacion.innerHTML = this.producto.nombre;
@@ -197,7 +201,6 @@ class ProductoABM {
             let descripcion = document.getElementById(this.ids.txtDescProd);
             descripcion.value = this.producto.descripcion;
             descripcion.disabled = true;
-            let codigo = document.getElementById(this.ids.txtCodProd);
             codigo.value = this.producto.codSKU; 
             codigo.disabled = true;
             let tipoProd = document.getElementById(this.ids.slcTipoProd);

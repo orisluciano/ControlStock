@@ -1,5 +1,7 @@
+import ProductoABM from "../../Producto/Vista/ProductoABM.js";
 import Formulario from "../../Utiles/Formulario.js";
 import Identificadores from "../../Utiles/Identificadores.js";
+import Operaciones from "../../Utiles/Operaciones.js";
 
 class EscanerVista {
     archivo = "./Escaner/Vista/EscanerVista.html";
@@ -10,6 +12,11 @@ class EscanerVista {
     };
     form = new Formulario();
     ident = new Identificadores();
+    operaciones = new Operaciones();
+    producto = {
+        tipoCod : null,
+        codigo : null
+    };
     
     constructor() {
         let pagina = "https://medium.com/js-now/creating-a-real-time-qr-code-scanner-with-vanilla-javascript-part-1-2-creating-the-scanner-a8934ee8f614";
@@ -51,7 +58,7 @@ class EscanerVista {
         this.detectar();
     }
 
-    detectar(video){alert("desde deteccion");
+    detectar(video){
         let resulta = document.getElementById(this.ids.divResult);
         resulta.innerHTML = "Escaneame esta";
         // Create new barcode detector
@@ -75,6 +82,9 @@ class EscanerVista {
             // Log the barcode to the console
             console.log(barcode)
             resulta.innerHTML = barcode.format + ": " + barcode.rawValue;
+            this.sonidoPrueba();
+            clearInterval();
+            this.buscarProducto(barcode.rawValue, barcode.format);
         }
         }).catch(err => {
         // Log an error if one happens
@@ -151,9 +161,26 @@ class EscanerVista {
         requestAnimationFrame(detectarFrame);
     });
     }
+    
+    irABMProducto(){
+        let abm = new ProductoABM(this.operaciones.crear, this.producto);
+        abm.cargarVista();
+    }
 
-// Ejecutar función al cargar la página
-//window.addEventListener('DOMContentLoaded', iniciarEscaner);
-       
+    buscarProducto(codigo, tipo){
+        let prodBuscado = {};
+        //1-Buscar
+        if (prodBuscado.codigo === codigo) {
+            let ver = new ProductoABM(this.operaciones.ver, prodBuscado);
+            ver.cargarVista();
+        } else {
+            if (confirm("Desea crear este producto")) {
+                this.producto.codigo = codigo;
+                this.producto.tipoCod = tipo;
+                let crear = new ProductoABM(this.operaciones.crear, this.producto);
+                crear.cargarVista();
+            }
+        }
+    }
 }
 export default EscanerVista;
