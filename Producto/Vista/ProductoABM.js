@@ -231,8 +231,9 @@ class ProductoABM {
             this.productoSend.descripcion = txtDescrip.value;
             let txtCod = document.getElementById(this.ids.txtCodProd);
             this.productoSend.codigo = txtCod.value;
+            let txtTipoCod = document.getElementById(this.ids.txtTipoCodProd);
+            this.productoSend.tipoCodigo = txtTipoCod.value;
             let slcTipo = document.getElementById(this.ids.slcTipoProd);
-            this.productoSend.tipoCodigo = this.producto.tipoCodigo;
             this.productoSend.tipoProductoId = slcTipo.value;
             switch (this.operacion) {
                 case this.operaciones.crear:
