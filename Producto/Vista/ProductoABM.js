@@ -27,6 +27,7 @@ class ProductoABM {
         txtNomProd : "txtNomProd",
         txtDescProd : "txtDescProd",
         txtCodProd : "txtCodProd",
+        txtTipoCodProd : "txtTipoCodProd",
         slcTipoProd : "slcTipoProd",
         txtPrecioCosto : "txtPrecioCosto",
         txtPrecioVenta : "txtPrecioVenta",
@@ -179,6 +180,7 @@ class ProductoABM {
         let operacion = document.getElementById(this.ids.operacionProd);
         operacion.innerHTML = "";
         let codigo = document.getElementById(this.ids.txtCodProd);
+        let tipoCod = document.getElementById(this.ids.txtTipoCodProd);
         if (this.operacion === this.operaciones.crear) {
             operacion.innerHTML = this.operacion + " producto";
             let divPrecio = document.getElementById(this.ids.divPrecio);
@@ -190,6 +192,7 @@ class ProductoABM {
             btnCancel.style.display = "none";
             if (Object.hasOwn(this.producto, "codigo")) {
                 codigo.value = this.producto.codigo;
+                tipoCod.value = this.producto.tipoCodigo;
             }
         }
         if (this.operacion === this.operaciones.eliminar || this.operacion === this.operaciones.ver) {
@@ -201,8 +204,10 @@ class ProductoABM {
             let descripcion = document.getElementById(this.ids.txtDescProd);
             descripcion.value = this.producto.descripcion;
             descripcion.disabled = true;
-            codigo.value = this.producto.codigo; 
+            codigo.value = this.producto.codigo;
+            tipoCod.value = this.producto.tipoCodigo; 
             codigo.disabled = true;
+            tipoCod.disabled = true;
             let tipoProd = document.getElementById(this.ids.slcTipoProd);
             //tipoProd.value = this.producto.tipoProdId
             //tipoProd.innerHTML = this.producto.tipoProdId;
@@ -340,8 +345,10 @@ class ProductoABM {
         descripcion.value = this.producto.descripcion;
         descripcion.disabled = true;
         let codigo = document.getElementById(this.ids.txtCodProd);
-        codigo.value = this.producto.codSKU; 
+        codigo.value = this.producto.codigo; 
         codigo.disabled = true;
+        let tipoCod = document.getElementById(this.ids.txtTipoCodProd);
+        tipoCod.disabled = true;
         let tipoProd = document.getElementById(this.ids.slcTipoProd);
         //tipoProd.value = this.producto.tipoProdId
         //tipoProd.innerHTML = this.producto.tipoProdId;
@@ -359,6 +366,8 @@ class ProductoABM {
         descripcion.disabled = false;
         let codigo = document.getElementById(this.ids.txtCodProd); 
         codigo.disabled = false;
+        let tipoCod = document.getElementById(this.ids.txtTipoCodProd);
+        tipoCod.disabled = false;
         let tipoProd = document.getElementById(this.ids.slcTipoProd);
         tipoProd.disabled = false;
         let btnOp = document.getElementById(this.ids.btnOpProd);
