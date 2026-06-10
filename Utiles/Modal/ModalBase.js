@@ -4,7 +4,7 @@ class ModalBase {
         btnCerrarModal : "btnCerrarModal",
         contenidoModal : "contenidoModal"
     };
-    archivo = "./front/Utiles/Modal/modalBase.html";
+    archivo = "./Utiles/Modal/modalBase.html"
     
     constructor() {
         
