@@ -4,7 +4,8 @@ class Producto {
     fechaMod = null;
     nombre = null;
     descripcion = null;
-    codSKU = null;
+    codigo = null;
+    tipoCodigo = null;
     tipoProductoId = null;
 
     constructor(parameters) {

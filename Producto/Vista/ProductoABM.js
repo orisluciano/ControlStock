@@ -201,7 +201,7 @@ class ProductoABM {
             let descripcion = document.getElementById(this.ids.txtDescProd);
             descripcion.value = this.producto.descripcion;
             descripcion.disabled = true;
-            codigo.value = this.producto.codSKU; 
+            codigo.value = this.producto.codigo; 
             codigo.disabled = true;
             let tipoProd = document.getElementById(this.ids.slcTipoProd);
             //tipoProd.value = this.producto.tipoProdId
@@ -225,8 +225,9 @@ class ProductoABM {
             let txtDescrip = document.getElementById(this.ids.txtDescProd);
             this.productoSend.descripcion = txtDescrip.value;
             let txtCod = document.getElementById(this.ids.txtCodProd);
-            this.productoSend.codSKU = txtCod.value;
+            this.productoSend.codigo = txtCod.value;
             let slcTipo = document.getElementById(this.ids.slcTipoProd);
+            this.productoSend.tipoCodigo = this.producto.tipoCodigo;
             this.productoSend.tipoProductoId = slcTipo.value;
             switch (this.operacion) {
                 case this.operaciones.crear:
@@ -241,7 +242,7 @@ class ProductoABM {
                 default:
                     break;
             }
-            if (base.errores.lenght > 0) {
+            if (base.errores.length > 0) {
                 let divErrores = document.getElementById(this.ids.divErroresProd);
                 divErrores.innerHTML = "";
                 alert("Hubo un error...");

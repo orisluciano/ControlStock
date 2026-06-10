@@ -176,7 +176,7 @@ class EscanerVista {
         } else {
             if (confirm("Desea crear este producto")) {
                 this.producto.codigo = codigo;
-                this.producto.tipoCod = tipo;
+                this.producto.tipoCodigo = tipo;
                 let crear = new ProductoABM(this.operaciones.crear, this.producto);
                 crear.cargarVista();
             }

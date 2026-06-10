@@ -79,7 +79,7 @@ class ProductoVista {
         colNombre.innerHTML = producto.nombre;
         linea.appendChild(colNombre);
         let colCod = document.createElement("td");
-        colCod.innerHTML = producto.codSKU;
+        colCod.innerHTML = producto.tipoCodigo + " - " + producto.codigo;
         linea.appendChild(colCod);
         linea.onclick = function(params) {
             esto.lineaTablaOnclick(producto);
