@@ -76,9 +76,9 @@ class TipoStockListaVista {
         let colNombre = document.createElement("td");
         colNombre.innerHTML = tipoStock.descripcion;
         linea.appendChild(colNombre);
-        linea.onclick = function(params) {
-            esto.lineaTablaOnclick(tipoStock);
-        };
+        linea.onclick = function() {
+            esto.irABM(esto.operaciones.ver, tipoStock);
+        }
         return linea;
     }
 
