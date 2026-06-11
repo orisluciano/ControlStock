@@ -8,6 +8,21 @@ class TipoProductoServicio {
         
     }
 
+    async nuevo(tipoProducto){
+        let base = await this.peticiones.peticionesVarias(this.api, "POST", tipoProducto, "");
+        return await base;
+    }
+
+    async modificar(tipoProducto){
+        let base = await this.peticiones.peticionesVarias(this.api, "PUT", tipoProducto, "");
+        return await base;
+    }
+
+    async eliminar(tipoProducto){
+        let base = await this.peticiones.peticionesVarias(this.api, "DELETE", tipoProducto, "");
+        return await base;
+    }
+
     async getProductos() {
         let peticion = await this.peticiones.peticionGet(this.api, "GET");
         return await peticion;
