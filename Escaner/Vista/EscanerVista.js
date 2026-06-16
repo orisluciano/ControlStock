@@ -46,7 +46,6 @@ class EscanerVista {
             // },
             audio: false
             }
-  
             // Start video stream
             navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
             //this.detectar(video);
@@ -132,6 +131,17 @@ class EscanerVista {
         let intervalo = setInterval(detectCode, 1000);
     }
 
+    apagarCamara(){
+        let videoElement = document.getElementById(this.ids.camara);
+                if (videoElement.srcObject) {
+                // Obtiene el stream directamente del elemento HTML y apaga las pistas
+                videoElement.srcObject.getTracks().forEach(track => track.stop());
+    
+                 // Limpia el elemento
+                videoElement.srcObject = null;
+                }
+    }
+
     sonidoPrueba(){
         // 1. Crear el contexto de audio
         const audioCtx = new AudioContext();
@@ -210,14 +220,19 @@ class EscanerVista {
         base = await serv.buscarProducto(codigo,tipo);
         //1-Buscar
         if (base.encontrado) {
+            this.apagarCamara();
             let ver = new ProductoABM(this.operaciones.ver, base.producto);
             ver.cargarVista();
         } else {
             if (confirm("Desea crear este producto")) {
+                this.apagarCamara();
                 this.producto.codigo = codigo;
                 this.producto.tipoCodigo = tipo;
                 let crear = new ProductoABM(this.operaciones.crear, this.producto);
                 crear.cargarVista();
+            }else{
+                this.apagarCamara();
+                this.cargarVista();
             }
         }
     }
