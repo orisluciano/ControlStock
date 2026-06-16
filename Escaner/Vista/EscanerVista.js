@@ -2,6 +2,7 @@ import ProductoABM from "../../Producto/Vista/ProductoABM.js";
 import Formulario from "../../Utiles/Formulario.js";
 import Identificadores from "../../Utiles/Identificadores.js";
 import Operaciones from "../../Utiles/Operaciones.js";
+import EscanerServicio from "../Servicio/EscanerServicio.js";
 
 class EscanerVista {
     archivo = "./Escaner/Vista/EscanerVista.html";
@@ -48,7 +49,8 @@ class EscanerVista {
   
             // Start video stream
             navigator.mediaDevices.getUserMedia(constraints).then(stream => video.srcObject = stream);
-            this.detectar(video);
+            //this.detectar(video);
+            this.deteccion(video);
             }
         }
         //setInterval(this.intervalo, 1000);
@@ -81,10 +83,11 @@ class EscanerVista {
         for (const barcode of codes)  {
             // Log the barcode to the console
             console.log(barcode)
-            resulta.innerHTML = barcode.format + ": " + barcode.rawValue;
+            //resulta.innerHTML = barcode.format + ": " + barcode.rawValue;
+            resulta.innerHTML = barcode;
             this.sonidoPrueba();
-            clearInterval();
             this.buscarProducto(barcode.rawValue, barcode.format);
+            clearInterval(detectCode);
         }
         }).catch(err => {
         // Log an error if one happens
@@ -93,6 +96,40 @@ class EscanerVista {
         })
         }
         setInterval(detectCode, 100);
+    }
+
+    async deteccion(video){
+        let esto = this;
+        let encontrado = false;
+        let resulta = document.getElementById(this.ids.divResult);
+        resulta.innerHTML = "Escaneame esta";
+        let formatos = await BarcodeDetector.getSupportedFormats();
+        const barcodeDetector = new BarcodeDetector({ formatos });
+        const detectCode = async function () {
+            let codigos = null;
+            try {
+                codigos = await barcodeDetector.detect(video);
+                if (codigos.length === 0){
+                resulta.innerHTML = "sin resultados";
+                return;
+                }
+                resulta.innerHTML = codigos[0].format + " - "+ codigos[0].rawValue;
+                encontrado = true;
+            } catch (error) {
+                err => {
+                    // Log an error if one happens
+                    console.error(err);
+                    resulta.innerHTML = err;
+                }
+            }
+            if (encontrado) {
+                clearInterval(intervalo);
+                alert(encontrado);
+                esto.sonidoPrueba();
+                esto.buscarProducto(codigos[0].rawValue, codigos[0].format);
+            }
+        };
+        let intervalo = setInterval(detectCode, 1000);
     }
 
     sonidoPrueba(){
@@ -167,11 +204,13 @@ class EscanerVista {
         abm.cargarVista();
     }
 
-    buscarProducto(codigo, tipo){
-        let prodBuscado = {};
+    async buscarProducto(codigo, tipo){
+        let base = {};
+        let serv = new EscanerServicio();
+        base = await serv.buscarProducto(codigo,tipo);
         //1-Buscar
-        if (prodBuscado.codigo === codigo) {
-            let ver = new ProductoABM(this.operaciones.ver, prodBuscado);
+        if (base.encontrado) {
+            let ver = new ProductoABM(this.operaciones.ver, base.producto);
             ver.cargarVista();
         } else {
             if (confirm("Desea crear este producto")) {

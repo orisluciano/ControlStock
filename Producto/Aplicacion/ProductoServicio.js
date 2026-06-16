@@ -18,7 +18,15 @@ class ProductoServicio {
             method : "GET"
         });
         let json = await peticion.json();
-        console.log(json);
+        return json;
+    }
+
+    async getByCodigo(codigo, tipoCodigo){
+        let dir = this.api + "/codigo/" + codigo + "/" + tipoCodigo;
+        let peticion = await fetch(dir, {
+            method : "GET"
+        });
+        let json = await peticion.json();
         return json;
     }
 
