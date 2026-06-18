@@ -1,10 +1,10 @@
+import TipoProductoServicio from "../../TipoProducto/Aplicacion/TipoProductoServicio.js";
 import ModalBase from "../../Utiles/Modal/ModalBase.js";
 import Operaciones from "../../Utiles/Operaciones.js";
-import TipoStockServicio from "../Aplicacion/TipoStockServicio.js";
-import TipoStockListaVista from "./TipoStockListaVista.js";
+import TipoProductoListaVista from "./TipoProductoListaVista.js";
 
-class TipoStockABM {
-    archivo = "./TipoStock/Vista/TipoStockABM.html";
+class TipoProductoABM {
+    archivo = "./TipoProducto/Vista/TipoProductoABM.html";
     ids = {
         operacionTipoStock : "operacionTipoStock",
         divOpTipoStock : "divOpTipoStock",
@@ -14,7 +14,7 @@ class TipoStockABM {
         btnModTipoStock : "btnModTipoStock",
         btnElimTipoStock : "btnElimTipoStock"
     };
-    tipoStockService = new TipoStockServicio();
+    tipoProdService = new TipoProductoServicio();
     modal = new ModalBase();
     operaciones = new Operaciones();
     tipoStock = {};
@@ -98,7 +98,7 @@ class TipoStockABM {
                 alert(e);
             });
             this.modal.cerrarModal();
-            let lista = new TipoStockListaVista();
+            let lista = new TipoProductoListaVista();
             lista.cargarVista();
         }
     }
@@ -144,4 +144,4 @@ class TipoStockABM {
     }
 }
 
-export default TipoStockABM;
+export default TipoProductoABM;

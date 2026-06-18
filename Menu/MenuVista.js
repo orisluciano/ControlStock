@@ -1,6 +1,7 @@
 import EscanerVista from "../Escaner/Vista/EscanerVista.js";
 import Inicio from "../Inicio/Inicio.js";
 import ProductoVista from "../Producto/Vista/ProductoVista.js";
+import TipoProductoListaVista from "../TipoProducto/Vista/TipoProductoListaVista.js";
 import TipoStockListaVista from "../TipoStock/Vista/TipoStockListaVista.js";
 import Formulario from "../Utiles/Formulario.js";
 import Identificadores from "../Utiles/Identificadores.js";
@@ -15,7 +16,7 @@ class MenuVista {
         btnTipoProducto : "btnTipoProducto",
         btnPrecio : "btnPrecio",
         btnMovimiento : "btnMovimiento",
-        btnTipoMovimiento : "btnTipoMovimiento",
+        btnMotivo : "btnMotivo",
         btnTipoStock : "btnTipoStock",
         btnEscaner : "btnEscaner"
     };
@@ -51,7 +52,11 @@ class MenuVista {
         let btnTipoStock = document.getElementById(this.ids.btnTipoStock);
         btnTipoStock.onclick = function() {
             esto.btnTipoStockOnClick();
-        }
+        };
+        let btnTipoProd = document.getElementById(this.ids.btnTipoProducto);
+        btnTipoProd.onclick = function() {
+            esto.btnTipoProductoOnClick();
+        };
     }
 
     btnPerfilOnClick(){
@@ -115,6 +120,11 @@ class MenuVista {
     btnTipoStockOnClick(){
         let tipoStockVista = new TipoStockListaVista();
         tipoStockVista.cargarVista();
+    }
+
+    btnTipoProductoOnClick(){
+        let tipoProdVista = new TipoProductoListaVista();
+        tipoProdVista.cargarDatos();
     }
 }
 
