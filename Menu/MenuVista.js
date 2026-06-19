@@ -1,5 +1,6 @@
 import EscanerVista from "../Escaner/Vista/EscanerVista.js";
 import Inicio from "../Inicio/Inicio.js";
+import MotivoListaVista from "../Motivo/Vista/MotivoListaVista.js";
 import ProductoVista from "../Producto/Vista/ProductoVista.js";
 import TipoProductoListaVista from "../TipoProducto/Vista/TipoProductoListaVista.js";
 import TipoStockListaVista from "../TipoStock/Vista/TipoStockListaVista.js";
@@ -56,6 +57,10 @@ class MenuVista {
         let btnTipoProd = document.getElementById(this.ids.btnTipoProducto);
         btnTipoProd.onclick = function() {
             esto.btnTipoProductoOnClick();
+        };
+        let btnMotivo = document.getElementById(this.ids.btnMotivo);
+        btnMotivo.onclick = function() {
+            esto.btnMotivoOnclick();
         };
     }
 
@@ -125,6 +130,11 @@ class MenuVista {
     btnTipoProductoOnClick(){
         let tipoProdVista = new TipoProductoListaVista();
         tipoProdVista.cargarVista();
+    }
+
+    btnMotivoOnclick(){
+        let motivoVista = new MotivoListaVista();
+        motivoVista.cargarVista();
     }
 }
 
