@@ -56,13 +56,15 @@ class TipoProductoABM {
     mostrarDatos(){
         let operacion = document.getElementById(this.ids.operacionTipoProd);
         operacion.innerHTML = "";
-        operacion.innerHTML = this.operacion + " tipo de producto";
         let descripcion = document.getElementById(this.ids.txtDescripcionTipoProd);
         if (this.operacion != this.operaciones.crear) {
+            operacion.innerHTML = this.tipoProd.descripcion;
             descripcion.innerHTML = "";
             descripcion.value = this.tipoProd.descripcion;
             descripcion.disabled = true;
             this.ocultarBtnOp();
+        }else{
+            operacion.innerHTML = this.operaciones.crear + " tipo de producto";
         }
     }
 
