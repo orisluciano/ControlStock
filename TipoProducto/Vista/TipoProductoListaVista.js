@@ -8,8 +8,8 @@ import TipoProductoABM from "./TipoProductoABM.js";
 class TipoProductoListaVista {
     archivo = "./TipoProducto/Vista/TipoProductoListaVista.html";
     ids = { 
-        btnNuevoTipoStock : "btnNuevoTipoStock",
-        tblTipoStock : "tblTipoStock",
+        btnNuevoTipoProd : "btnNuevoTipoProd",
+        tblTipoProd : "tblTipoProd",
         divPaginacion : "divPaginacion"
     };
     form = new Formulario();
@@ -33,9 +33,9 @@ class TipoProductoListaVista {
 
     cargarFunciones(){
         let esto = this;
-        let btnNuevoTipoStock = document.getElementById(this.ids.btnNuevoTipoStock);
-        btnNuevoTipoStock.onclick = function(params) {
-            esto.btnNuevoTipoStockOnClick();
+        let btnNuevo = document.getElementById(this.ids.btnNuevoTipoProd);
+        btnNuevo.onclick = function(params) {
+            esto.btnNuevoTipoProdOnClick();
         }
     }
 
@@ -43,7 +43,7 @@ class TipoProductoListaVista {
         let tipos = await this.cargarDatos();
         if (tipos.errores.length > 0) {
             alert("Hubo un problema al cargar los datos...");
-            let tabla = document.getElementById(this.ids.tblTipoStock);
+            let tabla = document.getElementById(this.ids.tblTipoProd);
             tabla.innerHTML = "";
             tipos.errores.forEach(e => {
                 let linea = document.createElement("tr");
@@ -57,27 +57,27 @@ class TipoProductoListaVista {
     }
 
     async cargarDatos(){
-        let res = await this.tipoStockService.getTodo();
+        let res = await this.tipoProdService.getProductos();
         return await res;
     }
 
     cargarTabla(datos){
-        let tabla = document.getElementById(this.ids.tblTipoStock);
+        let tabla = document.getElementById(this.ids.tblTipoProd);
         tabla.innerHTML = "";
         datos.forEach(e => {
             tabla.appendChild(this.crearLinea(e));
         });
     }
 
-    crearLinea(tipoStock){
+    crearLinea(tipo){
         let esto = this;
         let linea = document.createElement("tr");
         linea.className = "filaTabla";
         let colNombre = document.createElement("td");
-        colNombre.innerHTML = tipoStock.descripcion;
+        colNombre.innerHTML = tipo.descripcion;
         linea.appendChild(colNombre);
         linea.onclick = function() {
-            esto.irABM(esto.operaciones.ver, tipoStock);
+            esto.irABM(esto.operaciones.ver, tipo);
         }
         return linea;
     }
@@ -105,17 +105,17 @@ class TipoProductoListaVista {
         }
     }
 
-    lineaTablaOnclick(tipoStock){
-        this.irABM(this.operaciones.ver, tipoStock);
+    lineaTablaOnclick(tipo){
+        this.irABM(this.operaciones.ver, tipo);
     }
 
-    btnNuevoTipoStockOnClick(){
-        let tipoStock = {};
-        this.irABM(this.operaciones.crear, tipoStock);
+    btnNuevoTipoProdOnClick(){
+        let tipo = {};
+        this.irABM(this.operaciones.crear, tipo);
     }
 
-    irABM(operacion, tipoStock){
-        let abm = new TipoProductoABM(operacion, tipoStock);
+    irABM(operacion, tipo){
+        let abm = new TipoProductoABM(operacion, tipo);
         abm.cargarVista();
     }
 }

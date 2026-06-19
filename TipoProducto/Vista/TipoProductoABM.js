@@ -6,22 +6,22 @@ import TipoProductoListaVista from "./TipoProductoListaVista.js";
 class TipoProductoABM {
     archivo = "./TipoProducto/Vista/TipoProductoABM.html";
     ids = {
-        operacionTipoStock : "operacionTipoStock",
-        divOpTipoStock : "divOpTipoStock",
-        txtDescripcionTipoStock : "txtDescripcionTipoStock",
-        divErroresTipoStock : "divErroresTipoStock",
-        btnOpTipoStock : "btnOpTipoStock",
-        btnModTipoStock : "btnModTipoStock",
-        btnElimTipoStock : "btnElimTipoStock"
+        operacionTipoProd : "operacionTipoProd",
+        divOpTipoProd : "divOpTipoProd",
+        txtDescripcionTipoProd : "txtDescripcionTipoProd",
+        divErroresTipoProd : "divErroresTipoProd",
+        btnOpTipoProd : "btnOpTipoProd",
+        btnModTipoProd : "btnModTipoProd",
+        btnElimTipoProd : "btnElimTipoProd"
     };
     tipoProdService = new TipoProductoServicio();
     modal = new ModalBase();
     operaciones = new Operaciones();
-    tipoStock = {};
+    tipoProd = {};
     operacion = null;
 
-    constructor(operacion, tipoStock) {
-        this.tipoStock = tipoStock;
+    constructor(operacion, tipoProd) {
+        this.tipoProd = tipoProd;
         this.operacion = operacion;
     }
 
@@ -38,56 +38,56 @@ class TipoProductoABM {
 
     cargarFunciones(){
         let esto = this;
-        let btnOp = document.getElementById(this.ids.btnOpTipoStock);
+        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
         this.setButtonOperation();
         btnOp.onclick = function() {
-            esto.btnOpTipoStockOnClick();
+            esto.btnOpTipoProdOnClick();
         };
-        let btnMod = document.getElementById(this.ids.btnModTipoStock);
+        let btnMod = document.getElementById(this.ids.btnModTipoProd);
         btnMod.onclick = function() {
-            esto.btnModTipoStockOnClick();
+            esto.btnModTipoProdOnClick();
         };
-        let btnElim = document.getElementById(this.ids.btnElimTipoStock);
+        let btnElim = document.getElementById(this.ids.btnElimTipoProd);
         btnElim.onclick = function() {
-            esto.btnElimTipoStockOnClick();
+            esto.btnElimTipoProdOnClick();
         };
     }
 
     mostrarDatos(){
-        let operacion = document.getElementById(this.ids.operacionTipoStock);
+        let operacion = document.getElementById(this.ids.operacionTipoProd);
         operacion.innerHTML = "";
-        operacion.innerHTML = this.operacion + " tipo de stock";
-        let descripcion = document.getElementById(this.ids.txtDescripcionTipoStock);
+        operacion.innerHTML = this.operacion + " tipo de producto";
+        let descripcion = document.getElementById(this.ids.txtDescripcionTipoProd);
         if (this.operacion != this.operaciones.crear) {
             descripcion.innerHTML = "";
-            descripcion.value = this.tipoStock.descripcion;
+            descripcion.value = this.tipoProd.descripcion;
             descripcion.disabled = true;
             this.ocultarBtnOp();
         }
     }
 
     bloquearCampos(){
-        let descripcion = document.getElementById(this.ids.txtDescripcionTipoStock);
+        let descripcion = document.getElementById(this.ids.txtDescripcionTipoProd);
         descripcion.disabled = true;
     }
 
     desbloquearCampos(){
-        let descripcion = document.getElementById(this.ids.txtDescripcionTipoStock);
+        let descripcion = document.getElementById(this.ids.txtDescripcionTipoProd);
         descripcion.disabled = false;
     }
 
-    async btnOpTipoStockOnClick(){
-        let txtDescrip = document.getElementById(this.ids.txtDescripcionTipoStock);
-        this.tipoStock.descripcion = txtDescrip.value;
+    async btnOpTipoProdOnClick(){
+        let txtDescrip = document.getElementById(this.ids.txtDescripcionTipoProd);
+        this.tipoProd.descripcion = txtDescrip.value;
         let base = null;
         if (this.operacion === this.operaciones.crear) {
-            base = await this.tipoStockService.nuevo(this.tipoStock);   
+            base = await this.tipoProdService.nuevo(this.tipoProd);   
         }
         if (this.operacion === this.operaciones.modificar) {
-            base = await this.tipoStockService.modificar(this.tipoStock);   
+            base = await this.tipoProdService.modificar(this.tipoProd);   
         }
         if (this.operacion === this.operaciones.eliminar) {
-            base = await this.tipoStockService.eliminar(this.tipoStock);   
+            base = await this.tipoProdService.eliminar(this.tipoProd);   
         }
         if (base.errores.length > 0) {
             base.errores.forEach(e => {
@@ -103,14 +103,14 @@ class TipoProductoABM {
         }
     }
 
-    btnModTipoStockOnClick(){
+    btnModTipoProdOnClick(){
         this.operacion = this.operaciones.modificar;
         this.setButtonOperation();
         this.desbloquearCampos();
         this.mostrarbtnOp();
     }
 
-    btnElimTipoStockOnClick(){
+    btnElimTipoProdOnClick(){
         this.operacion = this.operaciones.eliminar;
         this.setButtonOperation();
         this.bloquearCampos();
@@ -118,28 +118,28 @@ class TipoProductoABM {
     }
 
     setButtonOperation(){
-        let btnOp = document.getElementById(this.ids.btnOpTipoStock);
+        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
         btnOp.innerHTML = this.operacion;
     }
 
     ocultarBtnOp(){
-        let btnOp = document.getElementById(this.ids.btnOpTipoStock);
+        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
         btnOp.style.display = "none";
     }
 
     mostrarbtnOp(){
-        let btnOp = document.getElementById(this.ids.btnOpTipoStock);
+        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
         btnOp.style.display = "inline-block";
         btnOp.className = "btnRelleno cabecera";
     }
 
     ocultarBotones(){
-        let divBotones = document.getElementById(this.ids.divOpTipoStock);
+        let divBotones = document.getElementById(this.ids.divOpTipoProd);
         divBotones.style.display = "none";
     }
 
     mostrarBotones(){
-        let divBotones = document.getElementById(this.ids.divErroresTipoStock);
+        let divBotones = document.getElementById(this.ids.divErroresTipoProd);
         divBotones.className = "divEspaciado marginBotton10";
     }
 }

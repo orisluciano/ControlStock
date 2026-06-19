@@ -124,7 +124,7 @@ class MenuVista {
 
     btnTipoProductoOnClick(){
         let tipoProdVista = new TipoProductoListaVista();
-        tipoProdVista.cargarDatos();
+        tipoProdVista.cargarVista();
     }
 }
 
