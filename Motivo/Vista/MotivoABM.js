@@ -4,24 +4,25 @@ import MotivoServicio from "../Aplicacion/MotivoServicio.js";
 import MotivoListaVista from "./MotivoListaVista.js";
 
 class MotivoABM {
-    archivo = "./TipoProducto/Vista/TipoProductoABM.html";
+    archivo = "./Motivo/Vista/MotivoABM.html";
     ids = {
-        operacionTipoProd : "operacionTipoProd",
-        divOpTipoProd : "divOpTipoProd",
-        txtDescripcionTipoProd : "txtDescripcionTipoProd",
-        divErroresTipoProd : "divErroresTipoProd",
-        btnOpTipoProd : "btnOpTipoProd",
-        btnModTipoProd : "btnModTipoProd",
-        btnElimTipoProd : "btnElimTipoProd"
+        operacionMotivo : "operacionMotivo",
+        divOpMotivo : "divOpMotivo",
+        txtDescripcionMotivo : "txtDescripcionMotivo",
+        divErroresMotivo : "divErroresMotivo",
+        btnOpMotivo : "btnOpMotivo",
+        btnModMotivo : "btnModMotivo",
+        btnElimMotivo : "btnElimMotivo",
+        slcTipoMotivo : "slcTipoMotivo"
     };
     motivoService = new MotivoServicio();
     modal = new ModalBase();
     operaciones = new Operaciones();
-    tipoProd = {};
+    motivo = {};
     operacion = null;
 
-    constructor(operacion, tipoProd) {
-        this.tipoProd = tipoProd;
+    constructor(operacion, motivo) {
+        this.motivo = motivo;
         this.operacion = operacion;
     }
 
@@ -38,58 +39,72 @@ class MotivoABM {
 
     cargarFunciones(){
         let esto = this;
-        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
+        let btnOp = document.getElementById(this.ids.btnOpMotivo);
         this.setButtonOperation();
         btnOp.onclick = function() {
-            esto.btnOpTipoProdOnClick();
+            esto.btnOpMotivoOnClick();
         };
-        let btnMod = document.getElementById(this.ids.btnModTipoProd);
+        let btnMod = document.getElementById(this.ids.btnModMotivo);
         btnMod.onclick = function() {
-            esto.btnModTipoProdOnClick();
+            esto.btnModMotivoOnClick();
         };
-        let btnElim = document.getElementById(this.ids.btnElimTipoProd);
+        let btnElim = document.getElementById(this.ids.btnElimMotivo);
         btnElim.onclick = function() {
-            esto.btnElimTipoProdOnClick();
+            esto.btnElimMotivoOnClick();
         };
     }
 
     mostrarDatos(){
-        let operacion = document.getElementById(this.ids.operacionTipoProd);
+        let operacion = document.getElementById(this.ids.operacionMotivo);
         operacion.innerHTML = "";
-        let descripcion = document.getElementById(this.ids.txtDescripcionTipoProd);
+        let descripcion = document.getElementById(this.ids.txtDescripcionMotivo);
         if (this.operacion != this.operaciones.crear) {
-            operacion.innerHTML = this.tipoProd.descripcion;
+            operacion.innerHTML = this.motivo.descripcion;
             descripcion.innerHTML = "";
-            descripcion.value = this.tipoProd.descripcion;
+            descripcion.value = this.motivo.descripcion;
             descripcion.disabled = true;
+            let slc = document.getElementById(this.ids.slcTipoMotivo);
+            let opciones = Array.from(slc.options);
+            opciones.forEach( e => {
+                if (e.text===this.motivo.tipo) {
+                    e.selected = true;
+                }
+            });
+            this.bloquearCampos();
             this.ocultarBtnOp();
         }else{
-            operacion.innerHTML = this.operaciones.crear + " tipo de producto";
+            operacion.innerHTML = this.operaciones.crear + " motivo de movimiento";
         }
     }
 
     bloquearCampos(){
-        let descripcion = document.getElementById(this.ids.txtDescripcionTipoProd);
+        let descripcion = document.getElementById(this.ids.txtDescripcionMotivo);
         descripcion.disabled = true;
+        let slc = document.getElementById(this.ids.slcTipoMotivo);
+        slc.disabled = true;
     }
 
     desbloquearCampos(){
-        let descripcion = document.getElementById(this.ids.txtDescripcionTipoProd);
+        let descripcion = document.getElementById(this.ids.txtDescripcionMotivo);
         descripcion.disabled = false;
+        let slc = document.getElementById(this.ids.slcTipoMotivo);
+        slc.disabled = false;
     }
 
-    async btnOpTipoProdOnClick(){
-        let txtDescrip = document.getElementById(this.ids.txtDescripcionTipoProd);
-        this.tipoProd.descripcion = txtDescrip.value;
+    async btnOpMotivoOnClick(){
+        let txtDescrip = document.getElementById(this.ids.txtDescripcionMotivo);
+        let slc = document.getElementById(this.ids.slcTipoMotivo);
+        this.motivo.descripcion = txtDescrip.value;
+        this.motivo.tipo = slc.value;
         let base = null;
         if (this.operacion === this.operaciones.crear) {
-            base = await this.tipoProdService.nuevo(this.tipoProd);   
+            base = await this.motivoService.nuevo(this.motivo);   
         }
         if (this.operacion === this.operaciones.modificar) {
-            base = await this.tipoProdService.modificar(this.tipoProd);   
+            base = await this.motivoService.modificar(this.motivo);   
         }
         if (this.operacion === this.operaciones.eliminar) {
-            base = await this.tipoProdService.eliminar(this.tipoProd);   
+            base = await this.motivoService.eliminar(this.motivo);   
         }
         if (base.errores.length > 0) {
             base.errores.forEach(e => {
@@ -105,14 +120,14 @@ class MotivoABM {
         }
     }
 
-    btnModTipoProdOnClick(){
+    btnModMotivoOnClick(){
         this.operacion = this.operaciones.modificar;
         this.setButtonOperation();
         this.desbloquearCampos();
         this.mostrarbtnOp();
     }
 
-    btnElimTipoProdOnClick(){
+    btnElimMotivoOnClick(){
         this.operacion = this.operaciones.eliminar;
         this.setButtonOperation();
         this.bloquearCampos();
@@ -120,28 +135,28 @@ class MotivoABM {
     }
 
     setButtonOperation(){
-        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
+        let btnOp = document.getElementById(this.ids.btnOpMotivo);
         btnOp.innerHTML = this.operacion;
     }
 
     ocultarBtnOp(){
-        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
+        let btnOp = document.getElementById(this.ids.btnOpMotivo);
         btnOp.style.display = "none";
     }
 
     mostrarbtnOp(){
-        let btnOp = document.getElementById(this.ids.btnOpTipoProd);
+        let btnOp = document.getElementById(this.ids.btnOpMotivo);
         btnOp.style.display = "inline-block";
         btnOp.className = "btnRelleno cabecera";
     }
 
     ocultarBotones(){
-        let divBotones = document.getElementById(this.ids.divOpTipoProd);
+        let divBotones = document.getElementById(this.ids.divOpMotivo);
         divBotones.style.display = "none";
     }
 
     mostrarBotones(){
-        let divBotones = document.getElementById(this.ids.divErroresTipoProd);
+        let divBotones = document.getElementById(this.ids.divErroresMotivo);
         divBotones.className = "divEspaciado marginBotton10";
     }
 }

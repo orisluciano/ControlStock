@@ -7,6 +7,21 @@ class MotivoServicio {
         
     }
 
+    async nuevo(motivo){
+        let base = await this.peticiones.peticionesVarias(this.api, "POST", motivo, "");
+        return await base;
+    }
+
+    async modificar(motivo){
+        let base = await this.peticiones.peticionesVarias(this.api, "PUT", motivo, "");
+        return await base;
+    }
+
+    async eliminar(motivo){
+        let base = await this.peticiones.peticionesVarias(this.api, "DELETE", motivo, "");
+        return await base;
+    }
+
     async getMotivos() {
         let peticion = await this.peticiones.peticionGet(this.api, "GET");
         return await peticion;
