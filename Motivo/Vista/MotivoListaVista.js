@@ -8,8 +8,8 @@ import MotivoABM from "./MotivoABM.js";
 class MotivoListaVista {
     archivo = "./Motivo/Vista/MotivoListaVista.html";
     ids = { 
-        btnNuevoTipoProd : "btnNuevoTipoProd",
-        tblTipoProd : "tblTipoProd",
+        btnNuevoMotivo : "btnNuevoMotivo",
+        tblMotivo : "tblMotivo",
         divPaginacion : "divPaginacion"
     };
     form = new Formulario();
@@ -33,9 +33,9 @@ class MotivoListaVista {
 
     cargarFunciones(){
         let esto = this;
-        let btnNuevo = document.getElementById(this.ids.btnNuevoTipoProd);
+        let btnNuevo = document.getElementById(this.ids.btnNuevoMotivo);
         btnNuevo.onclick = function(params) {
-            esto.btnNuevoTipoProdOnClick();
+            esto.btnNuevoMotivoOnClick();
         }
     }
 
@@ -43,7 +43,7 @@ class MotivoListaVista {
         let tipos = await this.cargarDatos();
         if (tipos.errores.length > 0) {
             alert("Hubo un problema al cargar los datos...");
-            let tabla = document.getElementById(this.ids.tblTipoProd);
+            let tabla = document.getElementById(this.ids.tblMotivo);
             tabla.innerHTML = "";
             tipos.errores.forEach(e => {
                 let linea = document.createElement("tr");
@@ -57,12 +57,12 @@ class MotivoListaVista {
     }
 
     async cargarDatos(){
-        let res = await this.tipoProdService.getProductos();
+        let res = await this.motivoService.getMotivos();
         return await res;
     }
 
     cargarTabla(datos){
-        let tabla = document.getElementById(this.ids.tblTipoProd);
+        let tabla = document.getElementById(this.ids.tblMotivo);
         tabla.innerHTML = "";
         datos.forEach(e => {
             tabla.appendChild(this.crearLinea(e));
@@ -76,6 +76,9 @@ class MotivoListaVista {
         let colNombre = document.createElement("td");
         colNombre.innerHTML = tipo.descripcion;
         linea.appendChild(colNombre);
+        let colTipo = document.createElement("td");
+        colTipo.innerHTML = tipo.tipo;
+        linea.appendChild(colTipo);
         linea.onclick = function() {
             esto.irABM(esto.operaciones.ver, tipo);
         }
@@ -109,7 +112,7 @@ class MotivoListaVista {
         this.irABM(this.operaciones.ver, tipo);
     }
 
-    btnNuevoTipoProdOnClick(){
+    btnNuevoMotivoOnClick(){
         let tipo = {};
         this.irABM(this.operaciones.crear, tipo);
     }
