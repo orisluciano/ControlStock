@@ -56,13 +56,15 @@ class TipoStockABM {
     mostrarDatos(){
         let operacion = document.getElementById(this.ids.operacionTipoStock);
         operacion.innerHTML = "";
-        operacion.innerHTML = this.operacion + " tipo de stock";
         let descripcion = document.getElementById(this.ids.txtDescripcionTipoStock);
         if (this.operacion != this.operaciones.crear) {
+            operacion.innerHTML = this.tipoStock.descripcion;
             descripcion.innerHTML = "";
             descripcion.value = this.tipoStock.descripcion;
             descripcion.disabled = true;
             this.ocultarBtnOp();
+        }else{
+            operacion.innerHTML = this.operaciones.crear + " tipo de stock";
         }
     }
 
