@@ -14,7 +14,6 @@ class PeticionesHttp {
                 method : metodo
             });
             let json = await res.json();
-            console.log(json);
             this.respuesta = json;
         } catch (error) {
             this.respuesta.errores.push(error);
@@ -33,7 +32,6 @@ class PeticionesHttp {
                 })
             });
             let json = await res.json();
-            console.log(json);
             this.respuesta = json;
         } catch (error) {
             this.respuesta.errores.push(error);
@@ -52,7 +50,6 @@ class PeticionesHttp {
                 })
             });
             let json = await res.json();
-            console.log(json);
             this.respuesta.resultado = json;
         } catch (error) {
             this.respuesta.errores.push(error);
