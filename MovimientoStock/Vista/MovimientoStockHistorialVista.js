@@ -1,3 +1,4 @@
+import MotivoServicio from "../../Motivo/Aplicacion/MotivoServicio.js";
 import ModalBase from "../../Utiles/Modal/ModalBase.js";
 import MovimientoStockServicio from "../Aplicacion/MovimientoStockServicio.js";
 
@@ -13,6 +14,8 @@ class MovimientoStockHistorialVista {
     };
     stockId = null;
     movService = new MovimientoStockServicio();
+    motivoService = new MotivoServicio();
+    motivos = {};
 
     constructor(stockId) {
         this.stockId = stockId;
@@ -41,14 +44,14 @@ class MovimientoStockHistorialVista {
         let txtHasta = document.getElementById(this.ids.txtHasta);
         let hasta = txtHasta.value;
         let respBase = await this.movService.getMovsById(this.stockId, desde, hasta);
-        console.log(respBase);
+        let motBase = await this.motivoService.getMotivos();
         let tabla = document.getElementById(this.ids.tblMovs);
-        if (respBase.errores.length > 0) {
+        if (respBase.errores.length > 0 && motBase.errores.length > 0) {
             respBase.errores.forEach(e => {
                 alert(e);
             });
         } else {
-            
+            this.motivos = motBase.respuesta;
             this.cargarTabla(respBase.respuesta);
         }
     }
@@ -76,7 +79,11 @@ class MovimientoStockHistorialVista {
         colTipoMov.innerHTML = mov.tipo;
         linea.appendChild(colTipoMov);
         let colMotivo = document.createElement("td");
-        colMotivo.innerHTML = mov.motivoMovId;
+        this.motivos.forEach(e => {
+            if (e.id === mov.motivoMovId) {
+                colMotivo.innerHTML = e.descripcion;     
+            }
+        });
         linea.appendChild(colMotivo);
         let colFecha = document.createElement("td");
         colFecha.innerHTML = mov.fechaModif;
