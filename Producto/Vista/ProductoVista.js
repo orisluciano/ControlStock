@@ -58,7 +58,6 @@ class ProductoVista {
 
     async cargarDatos(desde, cantidad){
         let res = await this.prodService.getProductos(desde, cantidad);
-        console.log(await res);
         return await res;
     }
 
