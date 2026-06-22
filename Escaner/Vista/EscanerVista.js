@@ -20,7 +20,7 @@ class EscanerVista {
     };
     
     constructor() {
-        let pagina = "https://medium.com/js-now/creating-a-real-time-qr-code-scanner-with-vanilla-javascript-part-1-2-creating-the-scanner-a8934ee8f614";
+        
     }
     
     async cargarVista(){
@@ -61,7 +61,7 @@ class EscanerVista {
 
     detectar(video){
         let resulta = document.getElementById(this.ids.divResult);
-        resulta.innerHTML = "Escaneame esta";
+        resulta.innerHTML = "Esperando lectura";
         // Create new barcode detector
         let formats;
         // Save all formats to formats var 
@@ -123,7 +123,6 @@ class EscanerVista {
             }
             if (encontrado) {
                 clearInterval(intervalo);
-                alert(encontrado);
                 esto.sonidoPrueba();
                 esto.buscarProducto(codigos[0].rawValue, codigos[0].format);
             }
