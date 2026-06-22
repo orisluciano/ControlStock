@@ -84,6 +84,7 @@ class StockConfigVista {
 
     async cargarSlcTipoStock(){
         let slcTipoStock = document.getElementById(this.ids.slcTipoStock);
+        slcTipoStock.innerHTML = "";
         let res = await this.tipoStockService.getTodo();
         if (res.errores.length > 0) {
             let error = document.createElement("option");
