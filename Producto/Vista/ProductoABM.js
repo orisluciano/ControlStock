@@ -234,7 +234,8 @@ class ProductoABM {
             let txtTipoCod = document.getElementById(this.ids.txtTipoCodProd);
             this.productoSend.tipoCodigo = txtTipoCod.value;
             let slcTipo = document.getElementById(this.ids.slcTipoProd);
-            this.productoSend.tipoProductoId = slcTipo.value;
+            this.productoSend.tipoProductoId = Number(slcTipo.value);
+            this.productoSend.tipoProdId = this.productoSend.tipoProductoId;
             switch (this.operacion) {
                 case this.operaciones.crear:
                     base = await this.prodService.nuevo(this.productoSend);
@@ -267,6 +268,8 @@ class ProductoABM {
                     case this.operaciones.modificar:
                         this.bloquearInputs();
                         this.operacion = this.operaciones.ver;
+                        this.producto = this.productoSend;
+                        this.cargarVista();
                         break;
                     case this.operaciones.eliminar:
                         this.irLista();
