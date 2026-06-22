@@ -331,13 +331,21 @@ class ProductoABM {
     }
 
     btnModStockOnClick(){
-        let modStock = new MovimientoStockModVista(this.stock.id, this.producto);
-        modStock.cargarVista();
+        if (this.stock === null) {
+            alert("Primero debe crear la configuracion de stock");
+        } else {
+            let modStock = new MovimientoStockModVista(this.stock.id, this.producto);
+            modStock.cargarVista();   
+        }
     }
 
     btnMovsStockOnClick(){
-        let movHist = new MovimientoStockHistorialVista(this.stock.id);
-        movHist.cargarVista();
+        if (this.stock === null) {
+            alert("Primero debe crear la configuracion de stock");
+        } else {
+            let movHist = new MovimientoStockHistorialVista(this.stock.id);
+            movHist.cargarVista();   
+        }
     }
 
     bloquearInputs(){
