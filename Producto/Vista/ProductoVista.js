@@ -34,7 +34,7 @@ class ProductoVista {
         root.innerHTML = "";
         root.innerHTML = res;
         this.cargarFunciones();
-        await this.mostrarDatos(0, 10, 0);
+        //await this.mostrarDatos(0, 10, 0);
         await this.cargarProductos();
         await this.cargarTipos();
     }
