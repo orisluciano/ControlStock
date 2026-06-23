@@ -101,7 +101,7 @@ class EscanerVista {
         let esto = this;
         let encontrado = false;
         let resulta = document.getElementById(this.ids.divResult);
-        resulta.innerHTML = "Escaneame esta";
+        resulta.innerHTML = "Esperando lectura";
         let formatos = await BarcodeDetector.getSupportedFormats();
         const barcodeDetector = new BarcodeDetector({ formatos });
         const detectCode = async function () {
