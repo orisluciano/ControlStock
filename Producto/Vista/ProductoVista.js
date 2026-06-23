@@ -4,19 +4,25 @@ import Formulario from "../../Utiles/Formulario.js";
 import Identificadores from "../../Utiles/Identificadores.js";
 import ProductoServicio from "../Aplicacion/ProductoServicio.js";
 import ProductoABM from "./ProductoABM.js";
+import TipoProductoServicio from "../../TipoProducto/Aplicacion/TipoProductoServicio.js";
 
 class ProductoVista {
     archivo = "./Producto/Vista/ProductoVista.html";
     ids = { 
         btnNuevoProd : "btnNuevoProd",
         tblProd : "tblProd",
-        divPaginacion : "divPaginacion"
+        divPaginacion : "divPaginacion",
+        slcTiposBuscador : "slcTiposBuscador",
+        txtProdBuscador : "txtProdBuscador",
+        btnBuscadorProd : "btnBuscadorProd"
     };
     form = new Formulario();
     ident = new Identificadores();
     operaciones = new Operaciones();
     botones = new BotonesSVG();
     prodService = new ProductoServicio();
+    productos = {};
+    listaFiltrada = {};
 
     constructor(parameters) {
         
@@ -29,6 +35,37 @@ class ProductoVista {
         root.innerHTML = res;
         this.cargarFunciones();
         await this.mostrarDatos(0, 10, 0);
+        await this.cargarProductos();
+        await this.cargarTipos();
+    }
+
+    async cargarProductos(){
+        let res = await this.prodService.getTodosProductos();
+        if (res.errores.length > 0) {
+            alert("Hubo un error al cargar los productos...");
+        } else {
+            this.productos = res.respuesta;
+        }
+    }
+
+    async cargarTipos(){
+        let selec = document.getElementById(this.ids.slcTiposBuscador);
+        let servicio = new TipoProductoServicio();
+        let tipos =  await servicio.getProductos();
+        if (tipos.errores.length > 0) {
+            alert("Hubo un error al cargar los tipos de productos");
+        } else {
+            let vacio = document.createElement("option");
+            vacio.value = "vacio";
+            vacio.innerHTML = "vacio";
+            selec.appendChild(vacio);
+            tipos.respuesta.forEach(e => {
+               let op = document.createElement("option");
+               op.value = e.id;
+               op.innerHTML = e.descripcion;
+               selec.appendChild(op);
+            });
+        }
     }
 
     cargarFunciones(){

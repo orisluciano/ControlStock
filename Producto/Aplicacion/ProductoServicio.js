@@ -30,6 +30,15 @@ class ProductoServicio {
         return json;
     }
 
+    async getTodosProductos(){
+        let dir = this.api;
+        let peticion = await fetch(dir, {
+            method : "GET"
+        });
+        let json = await peticion.json();
+        return json;
+    }
+
     async nuevo(producto){
         let base = await this.peticiones.peticionesVarias(this.api, "POST", producto, "");
         return await base;
