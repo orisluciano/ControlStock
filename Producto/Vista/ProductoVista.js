@@ -45,6 +45,7 @@ class ProductoVista {
             alert("Hubo un error al cargar los productos...");
         } else {
             this.productos = res.respuesta;
+            this.listaFiltrada = res.respuesta;
         }
     }
 
@@ -77,6 +78,14 @@ class ProductoVista {
         let slcTipo = document.getElementById(this.ids.slcTiposBuscador);
         slcTipo.onchange = function() {
             esto.filtrarPorTipo(slcTipo.value);
+        }
+        let txtBuscador = document.getElementById(this.ids.txtProdBuscador);
+        txtBuscador.oninput = function() {
+            esto.filtrarPorNombre(txtBuscador.value);
+        }
+        let btnBuscar = document.getElementById(this.ids.btnBuscadorProd);
+        btnBuscar.onclick = function() {
+            esto.filtrarPorNombre(txtBuscador.value);
         }
     }
 
@@ -114,6 +123,16 @@ class ProductoVista {
             });
         }
         this.cargarTablaFiltrada(this.listaFiltrada);
+    }
+
+    filtrarPorNombre(nombre){
+        let prods = [];
+        this.listaFiltrada.forEach(e => {
+            if (e.nombre.includes(nombre)) {
+                prods.push(e);
+            }
+        });
+        this.cargarTablaFiltrada(prods);
     }
 
     cargarTablaFiltrada(datos){
