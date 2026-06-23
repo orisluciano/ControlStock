@@ -21,8 +21,8 @@ class ProductoVista {
     operaciones = new Operaciones();
     botones = new BotonesSVG();
     prodService = new ProductoServicio();
-    productos = {};
-    listaFiltrada = {};
+    productos = new Array();
+    listaFiltrada = new Array();
 
     constructor(parameters) {
         
@@ -50,15 +50,15 @@ class ProductoVista {
 
     async cargarTipos(){
         let selec = document.getElementById(this.ids.slcTiposBuscador);
+        let vacio = document.createElement("option");
+        vacio.value = "vacio";
+        vacio.innerHTML = "vacio";
+        selec.appendChild(vacio);
         let servicio = new TipoProductoServicio();
         let tipos =  await servicio.getProductos();
         if (tipos.errores.length > 0) {
             alert("Hubo un error al cargar los tipos de productos");
         } else {
-            let vacio = document.createElement("option");
-            vacio.value = "vacio";
-            vacio.innerHTML = "vacio";
-            selec.appendChild(vacio);
             tipos.respuesta.forEach(e => {
                let op = document.createElement("option");
                op.value = e.id;
@@ -73,6 +73,10 @@ class ProductoVista {
         let btnNuevoProd = document.getElementById(this.ids.btnNuevoProd);
         btnNuevoProd.onclick = function(params) {
             esto.btnNuevoProdOnClick();
+        }
+        let slcTipo = document.getElementById(this.ids.slcTiposBuscador);
+        slcTipo.onchange = function() {
+            esto.filtrarPorTipo(slcTipo.value);
         }
     }
 
@@ -96,6 +100,28 @@ class ProductoVista {
     async cargarDatos(desde, cantidad){
         let res = await this.prodService.getProductos(desde, cantidad);
         return await res;
+    }
+
+    filtrarPorTipo(tipo){
+        if (tipo === "vacio") {
+            this.listaFiltrada = this.productos;
+        } else {
+            this.listaFiltrada = [];
+            this.productos.forEach(e => {
+                if (e.tipoProdId === parseInt(tipo,10)) {
+                    this.listaFiltrada.push(e);
+                }
+            });
+        }
+        this.cargarTablaFiltrada(this.listaFiltrada);
+    }
+
+    cargarTablaFiltrada(datos){
+        let tabla = document.getElementById(this.ids.tblProd);
+        tabla.innerHTML = "";
+        datos.forEach(e => {
+            tabla.appendChild(this.crearLinea(e));
+        });
     }
 
     cargarTabla(datos, index){
