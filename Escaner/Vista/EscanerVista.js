@@ -123,7 +123,7 @@ class EscanerVista {
             }
             if (encontrado) {
                 clearInterval(intervalo);
-                esto.sonidoPrueba();
+                esto.sonidoEscaner();
                 esto.buscarProducto(codigos[0].rawValue, codigos[0].format);
             }
         };
@@ -160,6 +160,27 @@ class EscanerVista {
 
         // 6. Detener a los 2 segundos
         oscilador.stop(audioCtx.currentTime + 2);
+    }
+
+    sonidoEscaner() {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        // Use a triangle or square wave for an electronic "beep"
+        oscillator.type = 'triangle'; 
+        // Supermarket scanners typically range between 850 Hz - 1000 Hz
+        oscillator.frequency.value = 1000; 
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        // Fade out to avoid a harsh popping sound
+        gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.1); // Plays for 100ms
     }
 
     async iniciarEscaner() {
