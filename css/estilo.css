@@ -344,3 +344,10 @@ tr {
         width: 95%;
     }
   }
+
+  
+.modal-ContentLimit {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
