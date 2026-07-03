@@ -1,6 +1,10 @@
 import ProductoServicio from "../../Producto/Aplicacion/ProductoServicio.js";
+import PeticionesHttp from "../../Utiles/PeticionesHttp.js";
 
 class EscanerServicio {
+    api = window.location.origin + "/BackendControlStock/api/precio";
+    peticiones = new PeticionesHttp();
+
     constructor() {
         
     }
@@ -10,8 +14,11 @@ class EscanerServicio {
             encontrado : null,
             producto : null
         }
-        let servicio = new ProductoServicio();
-        let base = await servicio.getByCodigo(codigo, tipoCodigo);
+        let datos = {
+            codigo : codigo,
+            tipoCodigo : tipoCodigo
+        };
+        let base = await this.peticiones.peticionesVarias(this.api, "POST", datos, "");
         if (base.errores.length > 0) {
             respuesta.encontrado = false;
         } else {
