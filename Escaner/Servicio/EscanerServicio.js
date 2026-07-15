@@ -2,7 +2,7 @@ import ProductoServicio from "../../Producto/Aplicacion/ProductoServicio.js";
 import PeticionesHttp from "../../Utiles/PeticionesHttp.js";
 
 class EscanerServicio {
-    api = window.location.origin + "/BackendControlStock/api/precio";
+    api = window.location.origin + "/BackendControlStock/api/escaner";
     peticiones = new PeticionesHttp();
 
     constructor() {
@@ -18,7 +18,14 @@ class EscanerServicio {
             codigo : codigo,
             tipoCodigo : tipoCodigo
         };
-        let base = await this.peticiones.peticionesVarias(this.api, "POST", datos, "");
+        let peticion = await fetch(this.api, {
+            method : "POST",
+            body : JSON.stringify(datos),
+            headers : new Headers({
+                    'Accept' : 'application/json'
+                })
+        });
+        let base = await peticion.json();
         if (base.errores.length > 0) {
             respuesta.encontrado = false;
         } else {
